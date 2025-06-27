@@ -3,41 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categoria: Storage - Guia de Estudo</title>
-    <!-- Caminho direto para os assets, pois está na raiz -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>AWS Amazon EFS - Guia de Estudo SAA-C03</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="Amazon EFS">
+    <meta name="aws-service-category" content="Storage">
+    <meta name="aws-service-category-link" content="../storage.html">
+    <meta name="aws-service-data-files" content="efs-cards-1.json">
+    
+    <!-- Scripts -->
+    <script src="../assets/js/script.js" defer></script>
 </head>
 <body>
-    <!-- Placeholder para o menu dinâmico -->
-    <div id="menu-placeholder"></div>
+    <!-- Header dinâmico será carregado via JS -->
+    <div id="header-container"></div>
 
-    <div class="container">
-        <header>
-            <h1>Categoria: Storage</h1>
-            <p>Serviços para armazenamento escalável, seguro e altamente disponível na nuvem da AWS.</p>
-            <nav class="breadcrumb">
-                <a href="index.html">Categorias</a> > 
-                <strong>Storage</strong>
-            </nav>
-        </header>
+    <main class="service-page">
+        <section class="service-info">
+            <h1 id="service-name">Amazon EFS</h1>
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> > 
+                <a href="../storage.html">Storage</a> > 
+                <span id="current-service">Amazon EFS</span>
+            </div>
+            <div class="service-description">
+                <p>Sistema de arquivos elástico, simples e escalável para uso com serviços AWS e recursos locais.</p>
+            </div>
+        </section>
 
-        <main>
-            <ul class="service-list">
-                <li><a href="services/s3.html">Amazon S3</a></li>
-                <!-- 
-                Quando você adicionar o próximo serviço de Storage, o link virá aqui.
-                Exemplo:
-                <li><a href="services/efs.html">Amazon EFS</a></li>
-                <li><a href="services/fsx.html">Amazon FSx</a></li>
-                -->
-            </ul>
-        </main>
-    </div>
+        <!-- Container dos flashcards -->
+        <section class="flashcards-container">
+            <div class="controls">
+                <button id="shuffle-btn">Embaralhar Cards</button>
+                <button id="toggle-mode">Modo Escuro</button>
+            </div>
+            <div id="flashcards"></div>
+            <div class="pagination">
+                <button id="prev-card">Anterior</button>
+                <span id="card-counter">Card 1 de 30</span>
+                <button id="next-card">Próximo</button>
+            </div>
+        </section>
+    </main>
 
-    <!-- Placeholder para o rodapé dinâmico -->
-    <div id="footer-placeholder"></div>
-
-    <!-- Caminho direto para os assets -->
-    <script src="assets/js/script.js"></script>
+    <!-- Footer dinâmico será carregado via JS -->
+    <div id="footer-container"></div>
 </body>
 </html>
