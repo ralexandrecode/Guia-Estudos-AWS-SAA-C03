@@ -1,10 +1,12 @@
-// --- GUIA DE ESTUDO AWS v2.5 (com carregamento dinâmico de múltiplos arquivos JSON) ---
-console.log("--- GUIA DE ESTUDO AWS v2.5 (com carregamento dinâmico de múltiplos arquivos JSON) ---");
+// --- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---
+console.log("--- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Detecta se estamos em uma página de serviço (profundidade 1) ou na raiz (profundidade 0)
     const isServicePage = window.location.pathname.includes('/services/');
     const pathPrefix = isServicePage ? '../' : '';
 
+    // Função para carregar e injetar o menu
     async function loadComponent(componentName, placeholderId) {
         const placeholder = document.getElementById(placeholderId);
         if (!placeholder) return;
@@ -12,23 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${pathPrefix}assets/components/${componentName}.html`);
             if (!response.ok) throw new Error(`${componentName} HTML not found`);
-
+            
             let componentHTML = await response.text();
+            
+            // Corrige a baseURL dos links
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const repoName = (pathSegments.length > 0 && !pathSegments[0].endsWith('.html')) ? pathSegments[0] : '';
             const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
 
             componentHTML = componentHTML.replace(/\{\{baseURL\}\}/g, baseURL);
             placeholder.innerHTML = componentHTML;
+            
         } catch (error) {
             console.error(`Failed to load ${componentName}:`, error);
             placeholder.innerHTML = `<p style="text-align:center; color:red;">Erro ao carregar ${componentName}.</p>`;
         }
     }
-
+    
+    // Função principal da aplicação
     async function main() {
         const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) return;
+        if (!flashcardContainer) return; // Só executa se estiver em página de serviço
 
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
@@ -69,9 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(`${pathPrefix}data/${fileName}`);
                 if (!response.ok) throw new Error(`Falha ao carregar ${fileName}`);
                 const cards = await response.json();
-                if (cards.quiz && Array.isArray(cards.quiz)) {
-                    allFlashcards = allFlashcards.concat(cards.quiz);
-                }
+                allFlashcards = allFlashcards.concat(cards);
             }
             console.log(`Carregados ${allFlashcards.length} flashcards de ${dataFiles.length} arquivo(s).`);
             return allFlashcards;
@@ -80,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return null;
         }
     }
-
+    
     function initializeFlashcards(flashcardsData) {
         const flashcard = document.getElementById('flashcard');
         const cardQuestion = document.getElementById('card-question');
@@ -102,14 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             setTimeout(() => {
                 const cardData = allCards[currentIndex];
-                cardQuestion.textContent = cardData.question || 'Sem pergunta';
-                cardAnswer.innerHTML = cardData.explanation || 'Sem explicação';
-                cardCategoryFront.textContent = cardData.category || '';
-                cardCategoryBack.textContent = cardData.category || '';
+                cardQuestion.textContent = cardData.question;
+                cardAnswer.innerHTML = cardData.answer;
+                cardCategoryFront.textContent = cardData.category;
+                cardCategoryBack.textContent = cardData.category;
                 updateCounter();
             }, 200);
         }
-
+        
         function updateCounter() {
             jumpInput.max = allCards.length;
             cardCounter.textContent = allCards.length > 0 ? `${currentIndex + 1} / ${allCards.length}` : '0 / 0';
@@ -138,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 jumpInput.value = '';
             }
         }
-
+        
         renderCard();
         flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
         prevBtn.addEventListener('click', showPrevCard);
@@ -147,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         jumpInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') jumpToCard();
         });
-
+        
         document.addEventListener('keydown', (e) => {
             if (document.activeElement === jumpInput) return;
             if (e.key === 'ArrowRight') showNextCard();
@@ -159,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Ponto de entrada da aplicação
     loadComponent('menu', 'menu-placeholder');
     loadComponent('footer', 'footer-placeholder');
     main();
