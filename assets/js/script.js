@@ -1,31 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // A função principal agora é assíncrona para lidar com o carregamento de dados
-    async function main() {
-        // Verifica se estamos em uma página de serviço (que tem um flashcard container)
-        const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) {
-            return; // Não executa o resto do script se não for uma página de serviço
-        }
+// PROVA FINAL: SE VOCÊ VIR ESTA MENSAGEM NO CONSOLE (F12), O SCRIPT NOVO CARREGOU.
+console.log("--- GUIA DE ESTUDO AWS v2.0 CARREGADO ---");
 
-        // 1. Ler os metadados do HTML
+document.addEventListener('DOMContentLoaded', () => {
+    async function main() {
+        const flashcardContainer = document.getElementById('flashcard-container');
+        if (!flashcardContainer) return;
+
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
         const categoryLink = document.querySelector('meta[name="aws-service-category-link"]').content;
         const dataFiles = document.querySelector('meta[name="aws-service-data-files"]').content.split(',').map(f => f.trim());
 
-        // 2. Gerar o cabeçalho da página dinamicamente
         generateHeader(serviceName, categoryName, categoryLink);
-
-        // 3. Carregar TODOS os dados dos arquivos JSON
+        
         const flashcardData = await loadFlashcardData(dataFiles);
 
-        // 4. SÓ DEPOIS de carregar os dados, inicializar a interface
         if (flashcardData && flashcardData.length > 0) {
             initializeFlashcards(flashcardData);
         } else {
-            // Exibe mensagem de erro se nenhum dado for carregado
-            document.getElementById('card-question').textContent = 'Erro ou nenhum dado encontrado.';
-            document.getElementById('card-answer').innerHTML = `<p>Não foi possível carregar os flashcards. Verifique se os arquivos JSON em /data/ estão corretos e se os nomes correspondem aos da meta tag no HTML.</p>`;
+            document.getElementById('card-question').textContent = 'Erro ao carregar dados.';
+            document.getElementById('card-answer').innerHTML = `<p>Não foi possível carregar os flashcards. Verifique o console (F12) para erros.</p>`;
+            document.getElementById('jump-container').style.display = 'none';
         }
     }
 
@@ -47,21 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             for (const fileName of dataFiles) {
                 const response = await fetch(`../data/${fileName}`);
-                if (!response.ok) {
-                    throw new Error(`Falha ao carregar ${fileName}: ${response.statusText}`);
-                }
+                if (!response.ok) throw new Error(`Falha ao carregar ${fileName}`);
                 const cards = await response.json();
                 allFlashcards = allFlashcards.concat(cards);
             }
+            console.log(`Carregados ${allFlashcards.length} flashcards de ${dataFiles.length} arquivo(s).`);
             return allFlashcards;
         } catch (error) {
-            console.error("Erro ao carregar os dados dos flashcards:", error);
-            return null; // Retorna null em caso de erro
+            console.error("ERRO CRÍTICO AO CARREGAR JSON:", error);
+            return null;
         }
     }
     
     function initializeFlashcards(flashcardsData) {
-        // Elementos da Interface
         const flashcard = document.getElementById('flashcard');
         const cardQuestion = document.getElementById('card-question');
         const cardAnswer = document.getElementById('card-answer');
@@ -71,23 +64,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const categoryFiltersContainer = document.getElementById('category-filters');
+        const jumpInput = document.getElementById('jump-input');
+        const jumpBtn = document.getElementById('jump-btn');
 
-        // Variáveis de Estado
         let currentFilter = 'Todos';
         let filteredData = [];
         let currentIndex = 0;
 
         function createCategoryFilters() {
-            // ESTA É A LÓGICA CORRIGIDA: Usa o 'flashcardsData' completo para criar as categorias
             const categories = ['Todos', ...new Set(flashcardsData.map(card => card.category))];
-            categoryFiltersContainer.innerHTML = ''; // Limpa quaisquer botões antigos
+            categoryFiltersContainer.innerHTML = ''; 
+            console.log("Criando filtros para as categorias:", categories); // Log para depuração
             
             categories.forEach(category => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.dataset.category = category;
                 btn.textContent = category;
-                if (category === 'Todos') { btn.classList.add('active'); }
+                if (category === 'Todos') btn.classList.add('active');
                 
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -101,12 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         function filterAndRender() {
-            if (currentFilter === 'Todos') {
-                filteredData = [...flashcardsData];
-            } else {
-                filteredData = flashcardsData.filter(card => card.category === currentFilter);
-            }
+            filteredData = (currentFilter === 'Todos') 
+                ? [...flashcardsData] 
+                : flashcardsData.filter(card => card.category === currentFilter);
+            
             currentIndex = 0;
+            jumpInput.value = '';
+            jumpInput.max = filteredData.length;
             renderCard();
         }
 
@@ -135,11 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         function updateCounter() {
-            if (filteredData.length > 0) {
-                cardCounter.textContent = `${currentIndex + 1} / ${filteredData.length}`;
-            } else {
-                cardCounter.textContent = '0 / 0';
-            }
+            cardCounter.textContent = filteredData.length > 0
+                ? `${currentIndex + 1} / ${filteredData.length}`
+                : '0 / 0';
         }
 
         function showNextCard() {
@@ -153,27 +146,41 @@ document.addEventListener('DOMContentLoaded', () => {
             currentIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
             renderCard();
         }
+
+        function jumpToCard() {
+            const pageNum = parseInt(jumpInput.value, 10);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= filteredData.length) {
+                currentIndex = pageNum - 1;
+                renderCard();
+                jumpInput.value = '';
+            } else {
+                alert(`Por favor, insira um número entre 1 e ${filteredData.length}.`);
+                jumpInput.value = '';
+            }
+        }
         
-        // Ponto de entrada da inicialização dos flashcards
+        // Ponto de entrada da inicialização
         createCategoryFilters();
         filterAndRender();
         
-        // Adicionar Listeners de evento
         flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
-        prevBtn.addEventListener('click', showNextCard); // Corrigido para ir para o próximo
-        nextBtn.addEventListener('click', showNextCard); // Mantido como próximo (o anterior pode ser confuso)
-        prevBtn.addEventListener('click', showPrevCard); // Corrigido para ir para o anterior
+        prevBtn.addEventListener('click', showPrevCard);
+        nextBtn.addEventListener('click', showNextCard);
+        jumpBtn.addEventListener('click', jumpToCard);
+        jumpInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') jumpToCard();
+        });
         
         document.addEventListener('keydown', (e) => {
-            if(e.key === 'ArrowRight') showNextCard();
-            if(e.key === 'ArrowLeft') showPrevCard();
-            if(e.key === ' ') {
+            if (document.activeElement === jumpInput) return; // Não interfere se estiver digitando
+            if (e.key === 'ArrowRight') showNextCard();
+            if (e.key === 'ArrowLeft') showPrevCard();
+            if (e.key === ' ') {
                 e.preventDefault();
                 flashcard.classList.toggle('is-flipped');
             }
         });
     }
 
-    // Inicia a execução do script
     main();
 });
