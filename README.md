@@ -60,4 +60,4 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ---
 
-_Criado com 🧠 e ☕ para a comunidade AWS._
+_Criado com 🧠, 🤖 e ☕.
