@@ -1,0 +1,144 @@
+"Objetivo: Gerar os arquivos necessários para adicionar um novo serviço de estudo ao meu microsite estático para a certificação AWS SAA-C03.
+
+Contexto do Projeto: O site é construído com HTML, CSS e JavaScript puros. A estrutura é a seguinte:
+
+Páginas de categoria (ex: compute.html) listam os serviços.
+
+Páginas de serviço (ex: services/ec2.html) exibem flashcards interativos.
+
+O conteúdo dos flashcards é carregado dinamicamente de arquivos .json localizados na pasta /data/.
+
+O JavaScript (assets/js/script.js) lê meta tags no HTML do serviço para saber quais arquivos JSON carregar.
+
+Menu e rodapé são carregados dinamicamente em todas as páginas.
+
+"Sua Missão: Gerar os blocos de código para os arquivos necessários para adicionar o serviço: Amazon S3.
+
+Informações do Serviço:
+
+Nome Completo do Serviço: Amazon S3
+
+Nome Curto/Arquivo: s3
+
+Categoria: Storage
+
+Arquivo da Categoria: s3.html
+
+Tarefas a Executar:
+
+Gerar Conteúdo JSON: Crie o conteúdo para 30 flashcards sobre o Amazon S3, focados no SAA-C03, cobrindo Classes de Armazenamento, Segurança, Versionamento e Ciclo de Vida. O arquivo será data/s3-cards-1.json.
+
+Gerar HTML da Página do Serviço: Gere o código para services/s3.html."
+
+Crie os novos arquivos seguindo exatamente a estrutura dos templates:
+
+Template para o Arquivo da Categoria s3.html:
+
+<!-- TEMPLATE PARA PÁGINA DE CATEGORIA: [Nome da Categoria].html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria: [Nome da Categoria] - Guia de Estudo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+
+    <div class="container">
+        <header>
+            <h1>Categoria: [Nome da Categoria]</h1>
+            <p>[Breve descrição da categoria].</p>
+             <nav class="breadcrumb">
+                <a href="index.html">Categorias</a> > 
+                <strong>[Nome da Categoria]</strong>
+            </nav>
+        </header>
+
+        <main>
+            <ul class="service-list">
+                <!-- Adicionar links para os serviços desta categoria aqui -->
+                <li><a href="services/[nome-do-servico-1].html">[Nome Completo do Serviço 1]</a></li>
+                <li><a href="services/[nome-do-servico-2].html">[Nome Completo do Serviço 2]</a></li>
+            </ul>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
+Template para o arquivo da página de serviços: 
+
+<!-- TEMPLATE PARA PÁGINA DE SERVIÇO: services/[nome-do-servico].html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS [Nome Completo do Serviço] - Guia de Estudo SAA-C03</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="[Nome Completo do Serviço]">
+    <meta name="aws-service-category" content="[Nome da Categoria]">
+    <meta name="aws-service-category-link" content="[arquivo-da-categoria].html">
+    <meta name="aws-service-data-files" content="[nome-do-servico]-cards-1.json">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+
+    <div class="container">
+        <header id="page-header"></header>
+
+        <div class="flashcard-container" id="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard__face flashcard__face--front">
+                    <span class="card-category" id="card-category-front"></span>
+                    <h2 class="card-question" id="card-question">Carregando...</h2>
+                </div>
+                <div class="flashcard__face flashcard__face--back">
+                    <span class="card-category" id="card-category-back"></span>
+                    <div class="card-answer" id="card-answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">Anterior</button>
+            <div class="nav-center">
+                <span id="card-counter"></span>
+                <div class="jump-to-card" id="jump-container">
+                    <input type="number" id="jump-input" min="1">
+                    <button id="jump-btn">Ir</button>
+                </div>
+            </div>
+            <button class="nav-btn" id="next-btn">Próximo</button>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
+
+Template do arquivo json para o serviço novo:
+
+// TEMPLATE PARA ARQUIVO JSON: data/[nome-do-servico]-cards-1.json
+[
+    {
+        "category": "[Sub-tópico do serviço, ex: Tipos de Instância]",
+        "question": "[Pergunta clara e direta sobre o conceito]",
+        "answer": "<h3>[Título da Resposta]</h3><p>[Explicação em parágrafos]. Use tags HTML como <code>código</code>, <b>negrito</b>, <ul><li>listas</li></ul>.</p><div class='insight'><b>Insight de Arquiteto:</b> [Dica prática ou de design para arquitetos].</div><div class='exam-tip'><b>Dica para o Exame:</b> [Foco em palavras-chave ou cenários comuns no exame SAA-C03].</div>"
+    },
+    {
+        "category": "[Outro sub-tópico, ex: Segurança]",
+        "question": "[Outra pergunta]",
+        "answer": "<h3>[Outro título]</h3><p>Mais conteúdo aqui.</p>"
+    }
+]
+
+Obs: Use o template e não mude nada no código. apenas preecha com as informações do serviço requerido.
+
