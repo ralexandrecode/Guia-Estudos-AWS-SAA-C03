@@ -1,1 +1,52 @@
-
+[
+  {
+    "category": "Conceitos Básicos",
+    "question": "O que é o Amazon EFS e qual seu principal caso de uso?",
+    "answer": "<h3>Sistema de Arquivos Elástico</h3><p>O <b>Amazon EFS</b> é um serviço de sistema de arquivos escalável e totalmente gerenciado para instâncias EC2. Seu principal caso de uso é fornecer armazenamento compartilhado para múltiplas instâncias EC2 e workloads baseadas em containers.</p><ul><li>Baseado no protocolo NFSv4</li><li>Escala automaticamente</li><li>Armazenamento compartilhado para workloads Linux</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para aplicações que exigem acesso a um sistema de arquivos comum, como CMS, repositórios de código e home directories.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se que o EFS é multi-AZ por padrão, enquanto os EBS são restritos a uma única AZ.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "Quais são os modos de performance disponíveis no EFS?",
+    "answer": "<h3>Opções de Throughput</h3><p>O EFS oferece dois modos de performance:</p><ul><li><b>General Purpose</b>: Baixa latência (ideal para maioria das cargas)</li><li><b>Max I/O</b>: Maior throughput paralelo (para workloads de alta escala)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Max I/O apenas quando necessário - ele tem latência mais alta e custo maior.</div><div class='exam-tip'><b>Dica para o Exame:</b> O modo de performance NÃO pode ser alterado após a criação do sistema de arquivos.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Quais classes de armazenamento o EFS oferece?",
+    "answer": "<h3>EFS Standard e EFS Infrequent Access</h3><ul><li><b>Standard</b>: Para arquivos acessados frequentemente</li><li><b>Infrequent Access (IA)</b>: Custo 92% menor para dados raramente acessados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ative o lifecycle management para mover automaticamente arquivos não acessados por 30 dias para EFS-IA.</div><div class='exam-tip'><b>Dica para o Exame:</b> Você paga uma taxa de leitura ao acessar arquivos no EFS-IA.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como o EFS integra-se com o AWS KMS?",
+    "answer": "<h3>Criptografia em Repouso</h3><p>O EFS suporta criptografia de dados em repouso usando chaves do KMS:</p><ul><li>Habilitado durante a criação do sistema de arquivos</li><li>Chaves AWS-managed ou CMK customizadas</li><li>Criptografia transparente para aplicações</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use CMK personalizadas para requisitos de compliance que exigem controle sobre políticas de chaves.</div><div class='exam-tip'><b>Dica para o Exame:</b> A criptografia é opcional, mas altamente recomendada para dados sensíveis.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como montar um sistema de arquivos EFS em uma instância EC2?",
+    "answer": "<h3>Processo de Montagem</h3><ol><li>Instale o cliente NFS: <code>sudo yum install -y amazon-efs-utils</code></li><li>Crie ponto de montagem: <code>mkdir ~/efs-mount</code></li><li>Monte: <code>sudo mount -t efs fs-12345678:/ ~/efs-mount</code></li></ol><div class='insight'><b>Insight de Arquiteto:</b> Use o helper <code>amazon-efs-utils</code> para montagem com TLS automático.</div><div class='exam-tip'><b>Dica para o Exame:</b> O Security Group da EC2 deve permitir NFS (port 2049) de/para o Security Group do EFS.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como fazer backup de sistemas de arquivos EFS?",
+    "answer": "<h3>EFS Backup Automático</h3><p>Habilite o backup automático nas propriedades do sistema de arquivos:</p><ul><li>Backups diários</li><li>Retenção configurável (14-35 dias)</li><li>Armazenados no AWS Backup</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com políticas de backup personalizadas no AWS Backup para retenção mais longa.</div><div class='exam-tip'><b>Dica para o Exame:</b> Backups automáticos têm custo adicional, mas são mais simples que soluções customizadas.</div>"
+  },
+  {
+    "category": "Escalabilidade",
+    "question": "Qual é o modelo de escalabilidade do EFS?",
+    "answer": "<h3>Crescimento Elástico</h3><p>O EFS escala automaticamente com base no uso:</p><ul><li>Capacidade: petabytes de dados</li><li>Throughput: escala com tamanho do armazenamento (modo Bursting) ou provisionado (modo Provisioned Throughput)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para workloads com picos imprevisíveis, use o modo Bursting. Para throughput consistente, use Provisioned.</div><div class='exam-tip'><b>Dica para o Exame:</b> No modo Bursting, o throughput base é 50 KB/s por GB armazenado.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Como os custos do EFS são calculados?",
+    "answer": "<h3>Modelo de Preços</h3><ul><li>Armazenamento: $0.08/GB-mês (Standard), $0.025/GB-mês (IA)</li><li>Throughput Provisionado: $6.00/MBps-mês</li><li>Operações: $0.01 por 1k operações (apenas EFS-IA)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Monitore o uso com CloudWatch para otimizar entre Standard/IA e ajustar throughput provisionado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Transferência entre EC2 e EFS na mesma região é gratuita!</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Qual é a disponibilidade padrão de um sistema de arquivos EFS?",
+    "answer": "<h3>Multi-AZ e Durabilidade</h3><p>O EFS Standard é projetado para:</p><ul><li>Disponibilidade de 99.99% (EFS One Zone: 99.9%)</li><li>Durabilidade de 99.999999999%</li><li>Replicação automática em múltiplas AZs</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use EFS One Zone apenas para dados não críticos - custo 47% menor mas sem replicação multi-AZ.</div><div class='exam-tip'><b>Dica para o Exame:</b> EFS One Zone armazena dados em uma única AZ, então não é tolerante a falhas de AZ.</div>"
+  },
+  {
+    "category": "Monitoramento",
+    "question": "Quais métricas do CloudWatch são essenciais para monitorar o EFS?",
+    "answer": "<h3>Métricas Chave</h3><ul><li><code>StorageBytes</code>: uso total de armazenamento</li><li><code>PermittedThroughput</code>: throughput disponível</li><li><code>ClientConnections</code>: contagem de clientes conectados</li><li><code>TotalIOBytes</code>: atividade de leitura/escrita</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crie alarmes para <code>PercentIOLimit</code> acima de 95% para evitar throttling.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS emite métricas a cada 1 minuto, sem custo adicional.</div>"
+  }
+]
