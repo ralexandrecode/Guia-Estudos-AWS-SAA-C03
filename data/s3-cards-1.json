@@ -1,0 +1,22 @@
+[
+    {
+        "category": "Classes de Armazenamento",
+        "question": "Qual a principal diferença entre o S3 Standard e o S3 Intelligent-Tiering?",
+        "answer": "<h3>Diferença entre Standard e Intelligent-Tiering</h3><p>O <b>S3 Standard</b> é ideal para dados acessados frequentemente, enquanto o <b>S3 Intelligent-Tiering</b> automatiza a movimentação entre camadas de acesso com base em padrões de uso, otimizando custos.</p><ul><li>Standard: baixa latência, alta disponibilidade</li><li>Intelligent-Tiering: monitora o uso e move automaticamente os dados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Intelligent-Tiering quando não for possível prever o padrão de acesso aos dados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se: Intelligent-Tiering tem taxa de monitoramento, mas pode reduzir o custo a longo prazo.</div>"
+    },
+    {
+        "category": "Segurança",
+        "question": "Como o Amazon S3 implementa controle de acesso por identidade?",
+        "answer": "<h3>Controle de Acesso com IAM</h3><p>O S3 integra-se ao <b>IAM (Identity and Access Management)</b> da AWS para definir permissões granulares de acesso a buckets e objetos.</p><ul><li>IAM Policies: controle por usuário ou grupo</li><li>Bucket Policies: regras específicas por bucket</li><li>ACLs (listas de controle de acesso): configuradas por objeto</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Prefira políticas baseadas em IAM para controle centralizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Bucket policies são ideais para acesso entre contas diferentes.</div>"
+    },
+    {
+        "category": "Versionamento",
+        "question": "Para que serve o versionamento no Amazon S3?",
+        "answer": "<h3>Controle de Versões</h3><p>Com o <b>versionamento</b> habilitado, o S3 mantém múltiplas versões de um mesmo objeto, evitando perda acidental de dados.</p><ul><li>Útil para recuperação de arquivos excluídos</li><li>Permite restaurar versões antigas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine versionamento com políticas de ciclo de vida para controle de custos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos excluídos aparecem como \"delete markers\" — a versão antiga ainda existe.</div>"
+    },
+    {
+        "category": "Ciclo de Vida",
+        "question": "Como as regras de ciclo de vida ajudam na gestão de objetos no S3?",
+        "answer": "<h3>Regras de Transição e Expiração</h3><p>As <b>políticas de ciclo de vida</b> automatizam a transição de objetos entre classes de armazenamento e a exclusão de dados antigos.</p><ul><li>Transição: Standard → Glacier após 30 dias</li><li>Expiração: excluir objetos após 365 dias</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para otimização de custos com dados acessados raramente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Políticas de ciclo de vida são baseadas em regras definidas por prefixos ou tags.</div>"
+    }
+]
