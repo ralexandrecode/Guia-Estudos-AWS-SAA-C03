@@ -1,5 +1,5 @@
-// --- GUIA DE ESTUDO AWS v2.3 (CORREÇÃO CRÍTICA DE CAMINHOS) ---
-console.log("--- GUIA DE ESTUDO AWS v2.3 (CORREÇÃO CRÍTICA DE CAMINHOS) ---");
+// --- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---
+console.log("--- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
     // Detecta se estamos em uma página de serviço (profundidade 1) ou na raiz (profundidade 0)
@@ -7,34 +7,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const pathPrefix = isServicePage ? '../' : '';
 
     // Função para carregar e injetar o menu
-    async function loadMenu() {
-        const menuPlaceholder = document.getElementById('menu-placeholder');
-        if (!menuPlaceholder) return;
+    async function loadComponent(componentName, placeholderId) {
+        const placeholder = document.getElementById(placeholderId);
+        if (!placeholder) return;
 
         try {
-            const response = await fetch(`${pathPrefix}assets/components/menu.html`);
-            if (!response.ok) throw new Error('Menu HTML not found');
+            const response = await fetch(`${pathPrefix}assets/components/${componentName}.html`);
+            if (!response.ok) throw new Error(`${componentName} HTML not found`);
             
-            let menuHTML = await response.text();
+            let componentHTML = await response.text();
             
-            // Corrige a baseURL dos links do menu
+            // Corrige a baseURL dos links
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const repoName = (pathSegments.length > 0 && !pathSegments[0].endsWith('.html')) ? pathSegments[0] : '';
             const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
 
-            menuHTML = menuHTML.replace(/\{\{baseURL\}\}/g, baseURL);
-            menuPlaceholder.innerHTML = menuHTML;
+            componentHTML = componentHTML.replace(/\{\{baseURL\}\}/g, baseURL);
+            placeholder.innerHTML = componentHTML;
             
         } catch (error) {
-            console.error('Failed to load menu:', error);
-            menuPlaceholder.innerHTML = '<p style="text-align:center; color:red;">Erro ao carregar menu.</p>';
+            console.error(`Failed to load ${componentName}:`, error);
+            placeholder.innerHTML = `<p style="text-align:center; color:red;">Erro ao carregar ${componentName}.</p>`;
         }
     }
     
     // Função principal da aplicação
     async function main() {
         const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) return;
+        if (!flashcardContainer) return; // Só executa se estiver em página de serviço
 
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.getElementById('card-question').textContent = 'Erro ao carregar dados.';
             document.getElementById('card-answer').innerHTML = `<p>Não foi possível carregar os flashcards. Verifique o console (F12) para erros.</p>`;
-            document.getElementById('jump-container').style.display = 'none';
+            if (document.getElementById('jump-container')) {
+                document.getElementById('jump-container').style.display = 'none';
+            }
         }
     }
 
@@ -70,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let allFlashcards = [];
         try {
             for (const fileName of dataFiles) {
-                // Usa o mesmo pathPrefix para garantir que encontre a pasta data
                 const response = await fetch(`${pathPrefix}data/${fileName}`);
                 if (!response.ok) throw new Error(`Falha ao carregar ${fileName}`);
                 const cards = await response.json();
@@ -163,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Ponto de entrada da aplicação
-    loadMenu();
+    loadComponent('menu', 'menu-placeholder');
+    loadComponent('footer', 'footer-placeholder');
     main();
 });
