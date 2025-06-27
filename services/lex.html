@@ -1,1 +1,51 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Título da Página -->
+    <title>AWS Lex - Guia de Estudo SAA-C03</title>
+    
+    <!-- Link para o CSS Centralizado -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="Lex">
+    <meta name="aws-service-category" content="Machine Learning">
+    <meta name="aws-service-category-link" content="../machine-learning.html"> <!-- Assumindo que teremos essa página -->
+    <meta name="aws-service-data-files" content="lex-cards-1.json">
+</head>
+<body>
+
+    <div class="container">
+        <!-- O cabeçalho será gerado dinamicamente pelo JS -->
+        <header id="page-header"></header>
+
+        <div class="category-filters" id="category-filters"></div>
+
+        <div class="flashcard-container" id="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard__face flashcard__face--front">
+                    <span class="card-category" id="card-category-front"></span>
+                    <h2 class="card-question" id="card-question">Carregando...</h2>
+                </div>
+                <div class="flashcard__face flashcard__face--back">
+                    <span class="card-category" id="card-category-back"></span>
+                    <div class="card-answer" id="card-answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">Anterior</button>
+            <span id="card-counter"></span>
+            <button class="nav-btn" id="next-btn">Próximo</button>
+        </div>
+    </div>
+
+    <!-- Link para o JavaScript Centralizado -->
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
