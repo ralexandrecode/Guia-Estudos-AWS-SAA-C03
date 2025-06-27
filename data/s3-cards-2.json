@@ -1,0 +1,111 @@
+{
+  "quiz": [
+    {
+      "question": "Qual é a principal função dos glóbulos vermelhos no sangue humano?",
+      "options": ["Combater infecções", "Transportar oxigênio", "Coagular o sangue", "Regular a temperatura"],
+      "answer": [1],
+      "explanation": "Os glóbulos vermelhos transportam oxigênio dos pulmões para os tecidos do corpo por meio da hemoglobina.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é o segundo maior planeta do sistema solar?",
+      "options": ["Terra", "Saturno", "Urano", "Netuno"],
+      "answer": [1],
+      "explanation": "Saturno é o segundo maior planeta do sistema solar, conhecido por seus anéis impressionantes.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Em que ano ocorreu a Proclamação da República no Brasil?",
+      "options": ["1889", "1822", "1922", "1891"],
+      "answer": [0],
+      "explanation": "A República foi proclamada no Brasil em 15 de novembro de 1889, encerrando o período imperial.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é a capital da Argentina?",
+      "options": ["Montevidéu", "Santiago", "Buenos Aires", "Assunção"],
+      "answer": [2],
+      "explanation": "Buenos Aires é a capital e maior cidade da Argentina.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "O que significa a sigla 'DNA'?",
+      "options": ["Ácido Deoxirribonucleico", "Dinucleotídeo Nuclear Ativo", "Desoxirribose Natural Ácida", "Dióxido de Nitrogênio Ativo"],
+      "answer": [0],
+      "explanation": "DNA significa Ácido Deoxirribonucleico, responsável por carregar as informações genéticas.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual a fórmula da velocidade média?",
+      "options": ["v = d × t", "v = d ÷ t", "v = t ÷ d", "v = a × t"],
+      "answer": [1],
+      "explanation": "Velocidade média é igual à distância dividida pelo tempo: \\( v = \\frac{d}{t} \\).",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Quem escreveu 'Dom Casmurro'?",
+      "options": ["José de Alencar", "Machado de Assis", "Carlos Drummond", "Clarice Lispector"],
+      "answer": [1],
+      "explanation": "‘Dom Casmurro’ é um dos romances mais conhecidos de Machado de Assis.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é o processo químico responsável pela ferrugem?",
+      "options": ["Redução", "Sublimação", "Oxidação", "Neutralização"],
+      "answer": [2],
+      "explanation": "A ferrugem ocorre por oxidação do ferro em presença de água e oxigênio.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é o maior oceano do planeta Terra?",
+      "options": ["Oceano Atlântico", "Oceano Índico", "Oceano Pacífico", "Oceano Ártico"],
+      "answer": [2],
+      "explanation": "O Oceano Pacífico é o maior e mais profundo dos oceanos.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Que órgão do corpo humano é responsável pela produção de insulina?",
+      "options": ["Fígado", "Pâncreas", "Rim", "Estômago"],
+      "answer": [1],
+      "explanation": "O pâncreas produz insulina, um hormônio essencial no controle da glicose no sangue.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual destas palavras é um advérbio de tempo?",
+      "options": ["Amanhã", "Lentamente", "Ali", "Muito"],
+      "answer": [0],
+      "explanation": "‘Amanhã’ indica tempo, sendo um advérbio temporal.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Quem foi o primeiro presidente do Brasil?",
+      "options": ["Getúlio Vargas", "Deodoro da Fonseca", "Floriano Peixoto", "Juscelino Kubitschek"],
+      "answer": [1],
+      "explanation": "Marechal Deodoro da Fonseca foi o primeiro presidente após a Proclamação da República.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é o número atômico do oxigênio?",
+      "options": ["6", "7", "8", "9"],
+      "answer": [2],
+      "explanation": "O oxigênio tem número atômico 8, ou seja, possui 8 prótons.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Que filósofo grego foi mestre de Alexandre, o Grande?",
+      "options": ["Sócrates", "Platão", "Aristóteles", "Epicuro"],
+      "answer": [2],
+      "explanation": "Aristóteles foi o mestre de Alexandre, o Grande, e um dos principais pensadores da Antiguidade.",
+      "type": "singleSelect"
+    },
+    {
+      "question": "Qual é o idioma oficial da Suíça?",
+      "options": ["Francês", "Alemão", "Italiano", "Todos os anteriores"],
+      "answer": [3],
+      "explanation": "A Suíça tem quatro idiomas oficiais: francês, alemão, italiano e romanche.",
+      "type": "singleSelect"
+    }
+  ],
+  "title": "Quiz Card - Intermediário",
+  "type": "quiz"
+}
