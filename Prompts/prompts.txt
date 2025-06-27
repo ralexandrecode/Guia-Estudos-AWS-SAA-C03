@@ -1,1 +1,217 @@
 
+Entendido perfeitamente. Sua solicitação é o passo mais estratégico até agora: criar um "Manual de Continuidade" para o projeto.
+
+O que eu entendi que você precisa:
+
+Um "Prompt Mestre" (Master Prompt): Um conjunto de instruções claras e inequívocas que você (ou qualquer outra pessoa, ou outra IA) possa usar para adicionar novo conteúdo ao guia de estudos. Este prompt deve ser robusto o suficiente para garantir que a estrutura que criamos seja respeitada e mantida, evitando que a IA "invente" um novo formato.
+
+Modelos de Arquivo (Esqueletos/Templates): Fornecer os "moldes" exatos para os três tipos de arquivos que serão criados no futuro:
+
+Arquivo de Página de Categoria (ex: compute.html).
+
+Arquivo de Página de Serviço (ex: services/ec2.html).
+
+Arquivo de Dados JSON (ex: data/ec2-cards-1.json).
+
+O objetivo é criar um sistema onde o único trabalho criativo seja a geração do conteúdo dos flashcards, enquanto a estrutura e a arquitetura do site se mantêm consistentes e automatizadas. É a essência da escalabilidade.
+
+O Manual de Continuidade para o Guia de Estudos AWS
+
+Aqui está o manual completo. Você pode salvar isso em um arquivo CONTRIBUTING.md ou INSTRUCTIONS.md na raiz do seu projeto no GitHub.
+
+1. O Prompt Mestre para Adicionar um Novo Serviço
+
+Este é o prompt que você usará para solicitar a criação dos arquivos para um novo serviço.
+
+--- INÍCIO DO PROMPT MESTRE (v3.0) ---
+
+Objetivo: Gerar os arquivos necessários para adicionar um novo serviço de estudo ao meu microsite estático para a certificação AWS SAA-C03.
+
+Contexto do Projeto: O site é construído com HTML, CSS e JavaScript puros. A estrutura é a seguinte:
+
+Páginas de categoria (ex: compute.html) listam os serviços.
+
+Páginas de serviço (ex: services/ec2.html) exibem flashcards interativos.
+
+O conteúdo dos flashcards é carregado dinamicamente de arquivos .json localizados na pasta /data/.
+
+O JavaScript (assets/js/script.js) lê meta tags no HTML do serviço para saber quais arquivos JSON carregar.
+
+Menu e rodapé são carregados dinamicamente em todas as páginas.
+
+Sua Missão: Gerar os blocos de código para os arquivos necessários para adicionar o serviço [NOME DO SERVIÇO AWS].
+
+Informações do Serviço:
+
+Nome Completo do Serviço: [Ex: Amazon Elastic Compute Cloud]
+
+Nome Curto/Arquivo: [Ex: ec2]
+
+Categoria: [Ex: Compute]
+
+Arquivo da Categoria: [Ex: compute.html]
+
+Tarefas a Executar:
+
+Gerar Conteúdo JSON: Crie o conteúdo para [número] flashcards sobre o serviço [Nome Completo do Serviço]. O conteúdo deve ser focado no exame SAA-C03, cobrindo tópicos como [tópico 1], [tópico 2], [tópico 3]. Inclua dicas com as classes CSS insight e exam-tip. Entregue este conteúdo em um único bloco de código JSON, formatado corretamente e pronto para ser salvo como data/[Nome Curto/Arquivo]-cards-1.json.
+
+Gerar HTML da Página do Serviço: Usando o "Template de Página de Serviço" como base, gere o código HTML completo para o arquivo services/[Nome Curto/Arquivo].html. Preencha as meta tags e o título da página com as informações fornecidas acima.
+
+Exemplo de Pedido Real:
+"Sua Missão: Gerar os blocos de código para os arquivos necessários para adicionar o serviço Amazon S3.
+Informações do Serviço:
+
+Nome Completo do Serviço: Amazon S3
+
+Nome Curto/Arquivo: s3
+
+Categoria: Storage
+
+Arquivo da Categoria: storage.html
+Tarefas a Executar:
+
+Gerar Conteúdo JSON: Crie o conteúdo para 30 flashcards sobre o Amazon S3, focados no SAA-C03, cobrindo Classes de Armazenamento, Segurança, Versionamento e Ciclo de Vida. O arquivo será data/s3-cards-1.json.
+
+Gerar HTML da Página do Serviço: Gere o código para services/s3.html."
+
+--- FIM DO PROMPT MESTRE (v3.0) ---
+
+2. Os Esqueletos de Arquivo (Templates)
+
+Estes são os moldes que a IA (ou uma pessoa) deve usar como referência.
+
+Esqueleto 1: Página de Categoria (ex: compute.html)
+
+Localização: Raiz do projeto.
+
+Finalidade: Listar os serviços de uma categoria.
+
+Generated html
+<!-- TEMPLATE PARA PÁGINA DE CATEGORIA: [Nome da Categoria].html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria: [Nome da Categoria] - Guia de Estudo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+
+    <div class="container">
+        <header>
+            <h1>Categoria: [Nome da Categoria]</h1>
+            <p>[Breve descrição da categoria].</p>
+             <nav class="breadcrumb">
+                <a href="index.html">Categorias</a> > 
+                <strong>[Nome da Categoria]</strong>
+            </nav>
+        </header>
+
+        <main>
+            <ul class="service-list">
+                <!-- Adicionar links para os serviços desta categoria aqui -->
+                <li><a href="services/[nome-do-servico-1].html">[Nome Completo do Serviço 1]</a></li>
+                <li><a href="services/[nome-do-servico-2].html">[Nome Completo do Serviço 2]</a></li>
+            </ul>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
+Esqueleto 2: Página de Serviço (ex: services/ec2.html)
+
+Localização: Pasta /services/.
+
+Finalidade: Exibir os flashcards de um serviço específico.
+
+Generated html
+<!-- TEMPLATE PARA PÁGINA DE SERVIÇO: services/[nome-do-servico].html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS [Nome Completo do Serviço] - Guia de Estudo SAA-C03</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="[Nome Completo do Serviço]">
+    <meta name="aws-service-category" content="[Nome da Categoria]">
+    <meta name="aws-service-category-link" content="[arquivo-da-categoria].html">
+    <meta name="aws-service-data-files" content="[nome-do-servico]-cards-1.json">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+
+    <div class="container">
+        <header id="page-header"></header>
+
+        <div class="flashcard-container" id="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard__face flashcard__face--front">
+                    <span class="card-category" id="card-category-front"></span>
+                    <h2 class="card-question" id="card-question">Carregando...</h2>
+                </div>
+                <div class="flashcard__face flashcard__face--back">
+                    <span class="card-category" id="card-category-back"></span>
+                    <div class="card-answer" id="card-answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">Anterior</button>
+            <div class="nav-center">
+                <span id="card-counter"></span>
+                <div class="jump-to-card" id="jump-container">
+                    <input type="number" id="jump-input" min="1">
+                    <button id="jump-btn">Ir</button>
+                </div>
+            </div>
+            <button class="nav-btn" id="next-btn">Próximo</button>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Html
+IGNORE_WHEN_COPYING_END
+Esqueleto 3: Arquivo de Dados JSON (ex: data/ec2-cards-1.json)
+
+Localização: Pasta /data/.
+
+Finalidade: Conter os dados dos flashcards.
+
+Generated json
+// TEMPLATE PARA ARQUIVO JSON: data/[nome-do-servico]-cards-1.json
+[
+    {
+        "category": "[Sub-tópico do serviço, ex: Tipos de Instância]",
+        "question": "[Pergunta clara e direta sobre o conceito]",
+        "answer": "<h3>[Título da Resposta]</h3><p>[Explicação em parágrafos]. Use tags HTML como <code>código</code>, <b>negrito</b>, <ul><li>listas</li></ul>.</p><div class='insight'><b>Insight de Arquiteto:</b> [Dica prática ou de design para arquitetos].</div><div class='exam-tip'><b>Dica para o Exame:</b> [Foco em palavras-chave ou cenários comuns no exame SAA-C03].</div>"
+    },
+    {
+        "category": "[Outro sub-tópico, ex: Segurança]",
+        "question": "[Outra pergunta]",
+        "answer": "<h3>[Outro título]</h3><p>Mais conteúdo aqui.</p>"
+    }
+]
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Json
+IGNORE_WHEN_COPYING_END
+
+Com este manual em mãos, qualquer pessoa ou IA pode continuar seu trabalho de forma consistente e segura.
