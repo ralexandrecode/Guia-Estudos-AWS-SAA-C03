@@ -3,53 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AWS Amazon EFS - Guia de Estudo SAA-C03</title>
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    
-    <!-- Metadados para o JavaScript -->
-    <meta name="aws-service-name" content="Amazon EFS">
-    <meta name="aws-service-category" content="Storage">
-    <meta name="aws-service-category-link" content="../storage.html">
-    <meta name="aws-service-data-files" content="efs-cards-1.json">
-    
-    <!-- Scripts -->
-    <script src="../assets/js/script.js" defer></script>
+    <title>Categoria: Storage - Guia de Estudo SAA-C03</title>
+    <!-- Caminho direto para os assets, pois está na raiz -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Header dinâmico será carregado via JS -->
-    <div id="header-container"></div>
+    <!-- Placeholder para o menu dinâmico -->
+    <div id="menu-placeholder"></div>
 
-    <main class="service-page">
-        <section class="service-info">
-            <h1 id="service-name">Amazon EFS</h1>
-            <div class="breadcrumb">
-                <a href="../index.html">Home</a> > 
-                <a href="../storage.html">Storage</a> > 
-                <span id="current-service">Amazon EFS</span>
-            </div>
-            <div class="service-description">
-                <p>Sistema de arquivos elástico, simples e escalável para uso com serviços AWS e recursos locais.</p>
-            </div>
-        </section>
+    <div class="container">
+        <header>
+            <h1>Categoria: Storage</h1>
+            <p>Serviços para armazenamento escalável, seguro e altamente disponível na nuvem da AWS.</p>
+            <nav class="breadcrumb">
+                <a href="index.html">Categorias</a> > 
+                <strong>Storage</strong>
+            </nav>
+        </header>
 
-        <!-- Container dos flashcards -->
-        <section class="flashcards-container">
-            <div class="controls">
-                <button id="shuffle-btn">Embaralhar Cards</button>
-                <button id="toggle-mode">Modo Escuro</button>
+        <main>
+            <div class="category-intro">
+                <p>Os serviços de armazenamento da AWS oferecem soluções para diversos casos de uso, 
+                desde armazenamento de objetos até sistemas de arquivos escaláveis.</p>
             </div>
-            <div id="flashcards"></div>
-            <div class="pagination">
-                <button id="prev-card">Anterior</button>
-                <span id="card-counter">Card 1 de 30</span>
-                <button id="next-card">Próximo</button>
-            </div>
-        </section>
-    </main>
 
-    <!-- Footer dinâmico será carregado via JS -->
-    <div id="footer-container"></div>
+            <div class="services-grid">
+                <!-- Amazon S3 -->
+                <div class="service-card">
+                    <h2>Amazon S3</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/s3.png" alt="S3 Icon">
+                    </div>
+                    <p>Armazenamento de objetos escalável com alta durabilidade e disponibilidade.</p>
+                    <a href="services/s3.html" class="btn-study">Estudar S3</a>
+                    <div class="stats">
+                        <span>50 flashcards</span>
+                        <span>Atualizado: 27/06/2025</span>
+                    </div>
+                </div>
+
+                <!-- Amazon EFS -->
+                <div class="service-card">
+                    <h2>Amazon EFS</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/efs.png" alt="EFS Icon">
+                    </div>
+                    <p>Sistema de arquivos elástico e totalmente gerenciado para uso com serviços AWS.</p>
+                    <a href="services/efs.html" class="btn-study">Estudar EFS</a>
+                    <div class="stats">
+                        <span>30 flashcards</span>
+                        <span>Atualizado: 25/06/2025</span>
+                    </div>
+                </div>
+
+                <!-- Amazon FSx -->
+                <div class="service-card">
+                    <h2>Amazon FSx</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/fsx.png" alt="FSx Icon">
+                    </div>
+                    <p>Sistemas de arquivos de alto desempenho para cargas de trabalho específicas.</p>
+                    <a href="services/fsx.html" class="btn-study">Estudar FSx</a>
+                    <div class="stats">
+                        <span>25 flashcards</span>
+                        <span>Atualizado: 24/06/2025</span>
+                    </div>
+                </div>
+
+                <!-- Amazon EBS -->
+                <div class="service-card">
+                    <h2>Amazon EBS</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/ebs.png" alt="EBS Icon">
+                    </div>
+                    <p>Volumes de armazenamento em bloco de alto desempenho para instâncias EC2.</p>
+                    <a href="services/ebs.html" class="btn-study">Estudar EBS</a>
+                    <div class="stats">
+                        <span>35 flashcards</span>
+                        <span>Atualizado: 26/06/2025</span>
+                    </div>
+                </div>
+
+                <!-- Amazon Storage Gateway -->
+                <div class="service-card">
+                    <h2>Storage Gateway</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/storage-gateway.png" alt="Storage Gateway Icon">
+                    </div>
+                    <p>Conecta ambientes locais aos serviços de armazenamento em nuvem da AWS.</p>
+                    <a href="services/storage-gateway.html" class="btn-study">Estudar Storage Gateway</a>
+                    <div class="stats">
+                        <span>20 flashcards</span>
+                        <span>Atualizado: 23/06/2025</span>
+                    </div>
+                </div>
+
+                <!-- Amazon S3 Glacier -->
+                <div class="service-card">
+                    <h2>Amazon S3 Glacier</h2>
+                    <div class="service-icon">
+                        <img src="assets/icons/glacier.png" alt="Glacier Icon">
+                    </div>
+                    <p>Armazenamento seguro e durável para arquivamento de dados a longo prazo.</p>
+                    <a href="services/glacier.html" class="btn-study">Estudar Glacier</a>
+                    <div class="stats">
+                        <span>15 flashcards</span>
+                        <span>Atualizado: 22/06/2025</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Placeholder para o rodapé dinâmico -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Caminho direto para os assets -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
