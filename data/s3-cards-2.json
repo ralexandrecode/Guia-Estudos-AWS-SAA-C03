@@ -1,27 +1,57 @@
 [
   {
-    "category": "Classes de Armazenamento",
-    "question": "Quando é mais vantajoso usar o S3 One Zone-IA ao invés do S3 Standard-IA?",
-    "answer": "<h3>One Zone-IA vs Standard-IA</h3><p>O <b>S3 One Zone-IA</b> armazena dados em uma única zona de disponibilidade, oferecendo menor custo comparado ao <b>Standard-IA</b>, que replica em múltiplas zonas.</p><ul><li>One Zone-IA: ideal para dados que podem ser recriados ou recuperados de outras fontes</li><li>Standard-IA: melhor para dados críticos com necessidade de alta durabilidade</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use One Zone-IA para backups secundários ou arquivos regeneráveis.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se de que One Zone-IA tem menor durabilidade devido à ausência de replicação entre zonas.</div>"
+    "category": "Resiliência",
+    "question": "Como o S3 garante durabilidade de 99.999999999%?",
+    "answer": "<h3>Armazenamento Multi-AZ</h3><p>Objetos são replicados em pelo menos 3 AZs antes do write ser confirmado.</p><ul><li>Checksums contínuos para verificação de integridade</li><li>Auto-healing de dados corrompidos</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Durabilidade ≠ Disponibilidade (Standard tem 99.99% disponibilidade).</div>"
   },
   {
-    "category": "Classes de Armazenamento",
-    "question": "O que diferencia o S3 Glacier Instant Retrieval do S3 Glacier Deep Archive?",
-    "answer": "<h3>Diferenças entre Glacier IR e Deep Archive</h3><p>O <b>S3 Glacier Instant Retrieval</b> permite acesso imediato a dados, enquanto o <b>Deep Archive</b> exige horas para recuperação.</p><ul><li>Glacier IR: ideal para arquivamento com necessidade de acesso esporádico mas rápido</li><li>Deep Archive: mais barato, mas requer até 12 horas para restaurar dados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine classes Glacier com ciclo de vida para arquivamento automático.</div><div class='exam-tip'><b>Dica para o Exame:</b> Deep Archive é a opção mais econômica para retenção legal ou arquivos históricos.</div>"
+    "category": "Performance",
+    "question": "Como melhorar throughput no S3?",
+    "answer": "<h3>Padrões de Nomenclatura</h3><p>Distribua objetos com prefixos aleatórios (ex: hash inicial) para evitar hotspots de partição.</p><ul><li>Ex: <code>3FE5/object.txt</code> em vez de <code>data/object.txt</code></li><li>Limite: 3.5k PUTs/seg por prefixo</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use S3 Inventory para analisar padrões de acesso.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Quais custos são cobrados além do armazenamento?",
+    "answer": "<h3>Estrutura de Preços</h3><ul><li>Requests (PUT: $0.005/1k, GET: $0.0004/1k)</li><li>Transferência OUT para internet</li><li>Recuperação de Glacier ($0.01-$0.03/GB)</li><li>Taxa de monitoramento (Intelligent-Tiering)</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Transferência entre S3 e EC2 na mesma região é gratuita.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como usar S3 com AWS Lambda?",
+    "answer": "<h3>Event Notifications</h3><p>Configure triggers para eventos:</p><ul><li>s3:ObjectCreated:*</li><li>s3:ObjectRemoved:*</li><li>s3:ObjectRestore:*</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use para processamento em tempo real de uploads (ex: transcoding).</div>"
   },
   {
     "category": "Segurança",
-    "question": "O que é o recurso S3 Block Public Access?",
-    "answer": "<h3>Proteção contra acesso público</h3><p>O <b>S3 Block Public Access</b> é um mecanismo que impede exposições acidentais, bloqueando permissões públicas em buckets e objetos.</p><ul><li>Aplica-se a todas as permissões públicas, independentemente de sua origem</li><li>Pode ser ativado por conta ou bucket</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ative globalmente para ambientes com alta exigência de segurança.</div><div class='exam-tip'><b>Dica para o Exame:</b> Mesmo com ACLs ou policies permitindo acesso público, o Block Public Access sobrepõe essas permissões.</div>"
+    "question": "O que é Access Point no S3?",
+    "answer": "<h3>Gateways Especializados</h3><p>Hostnames personalizados com políticas específicas:</p><ul><li>Restringir acesso por VPC/IP</li><li>Simplificar políticas complexas</li><li>Limitar a prefixos (ex: <code>access-point/reports</code>)</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Útil para compartilhar subsets de buckets com terceiros.</div>"
   },
   {
-    "category": "Versionamento",
-    "question": "O versionamento aumenta o custo de armazenamento no S3?",
-    "answer": "<h3>Impacto do Versionamento nos Custos</h3><p>Sim, pois <b>todas as versões de um objeto</b> são armazenadas e cobradas individualmente.</p><ul><li>Arquivos antigos e deletados continuam consumindo espaço</li><li>Políticas de ciclo de vida ajudam a mitigar esses custos</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine versionamento com regras de expiração para objetos antigos ou duplicados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos marcados para exclusão não liberam espaço até que todas as versões sejam removidas.</div>"
+    "category": "Monitoramento",
+    "question": "Quais métricas do CloudWatch monitoram S3?",
+    "answer": "<h3>Métricas Chave</h3><ul><li><code>BucketSizeBytes</code> (por classe de armazenamento)</li><li><code>NumberOfObjects</code></li><li><code>4xxErrors</code>/<code>5xxErrors</code></li><li><code>TotalRequestLatency</code></li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crie alarms para picos de 4xxErrors (possível acesso não autorizado).</div>"
   },
   {
-    "category": "Ciclo de Vida",
-    "question": "É possível aplicar regras de ciclo de vida com base em tags?",
-    "answer": "<h3>Regras Baseadas em Tags</h3><p>Sim! O S3 permite aplicar <b>políticas de ciclo de vida</b> com base em tags de objetos, oferecendo maior flexibilidade na automação.</p><ul><li>Permite gerenciar diferentes estratégias dentro de um mesmo bucket</li><li>Ideal para ambientes com dados diversos e critérios específicos de retenção</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Classifique seus objetos com tags desde o upload para facilitar o gerenciamento posterior.</div><div class='exam-tip'><b>Dica para o Exame:</b> A escolha por tags ou prefixos depende do controle granular que você deseja aplicar.</div>"
+    "category": "Classes de Armazenamento",
+    "question": "Quando usar S3 Glacier Instant Retrieval?",
+    "answer": "<h3>Recuperação em Milissegundos</h3><p>Para archives com acesso imprevisível mas que exigem baixa latência:</p><ul><li>Custo 68% menor que Standard-IA</li><li>Recuperação em 30-90 ms</li><li>Armazenamento mínimo: 128KB/objeto</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Não suporta S3 Select ou restaurações parciais.</div>"
+  },
+  {
+    "category": "Governança",
+    "question": "Como aplicar tags a objetos existentes?",
+    "answer": "<h3>S3 Batch Operations</h3><p>Processamento em massa via:</p><ol><li>Crie manifest de objetos (CSV/S3 Inventory)</li><li>Defina ação <code>PutObjectTagging</code></li><li>Execute job (paga por objeto processado)</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Use com S3 Lifecycle para gestão de dados não-tagueados.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como fazer backup de EBS no S3?",
+    "answer": "<h3>EBS Snapshots</h3><p>Snapshots são armazenados automaticamente no S3 (gerenciado pela AWS):</p><ul><li>Criptografados com SSE-KMS por padrão</li><li>Armazenados como objetos únicos</li><li>Lifecycle policies aplicáveis</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Snapshots são incrementais - você paga apenas por dados alterados.</div>"
+  },
+  {
+    "category": "Conformidade",
+    "question": "Como o S3 atende ao HIPAA?",
+    "answer": "<h3>Controles Específicos</h3><ul><li>Bucket policies com restrição de IP/VPC</li><li>SSE-KMS com CMK dedicada</li><li>Auditoria via CloudTrail + Config</li><li>Assinatura de BAA com AWS</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Desative acesso público e versione todos os buckets de PHI.</div>"
+  },
+  {
+    "category": "Otimização",
+    "question": "Quando usar S3 Select?",
+    "answer": "<h3>Consulta Direta em Objetos</h3><p>Reduza transferência em 90% filtrando dados no servidor:</p><ul><li>Formatos suportados: CSV, JSON, Parquet</li><li>Ex: <code>SELECT * FROM s3object WHERE salary > 50000</code></li><li>Custo adicional por GB scaneado</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Não substitui Athena - ideal para objetos individuais grandes.</div>"
   }
 ]
