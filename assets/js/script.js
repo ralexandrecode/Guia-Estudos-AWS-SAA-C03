@@ -1,30 +1,28 @@
-// --- GUIA DE ESTUDO AWS v2.2 CARREGADO (com menu dinâmico) ---
-console.log("--- GUIA DE ESTUDO AWS v2.2 CARREGADO (com menu dinâmico) ---");
+// --- GUIA DE ESTUDO AWS v2.3 (CORREÇÃO CRÍTICA DE CAMINHOS) ---
+console.log("--- GUIA DE ESTUDO AWS v2.3 (CORREÇÃO CRÍTICA DE CAMINHOS) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Detecta se estamos em uma página de serviço (profundidade 1) ou na raiz (profundidade 0)
+    const isServicePage = window.location.pathname.includes('/services/');
+    const pathPrefix = isServicePage ? '../' : '';
+
     // Função para carregar e injetar o menu
     async function loadMenu() {
         const menuPlaceholder = document.getElementById('menu-placeholder');
         if (!menuPlaceholder) return;
 
         try {
-            const isServicePage = window.location.pathname.includes('/services/');
-            const pathPrefix = isServicePage ? '../' : '';
-            
             const response = await fetch(`${pathPrefix}assets/components/menu.html`);
             if (!response.ok) throw new Error('Menu HTML not found');
             
             let menuHTML = await response.text();
             
-            // --- A MÁGICA ACONTECE AQUI ---
-            const pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && segment.toLowerCase() !== 'index.html');
-            const repoName = pathSegments.length > 0 ? pathSegments[0] : '';
+            // Corrige a baseURL dos links do menu
+            const pathSegments = window.location.pathname.split('/').filter(Boolean);
+            const repoName = (pathSegments.length > 0 && !pathSegments[0].endsWith('.html')) ? pathSegments[0] : '';
             const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
 
-            // Substitui os links usando um placeholder
             menuHTML = menuHTML.replace(/\{\{baseURL\}\}/g, baseURL);
-
-            // Injeta o HTML processado
             menuPlaceholder.innerHTML = menuHTML;
             
         } catch (error) {
@@ -36,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função principal da aplicação
     async function main() {
         const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) return; // Só executa se estiver em página de serviço
+        if (!flashcardContainer) return;
 
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataFiles = document.querySelector('meta[name="aws-service-data-files"]').content.split(',').map(f => f.trim());
 
         generateHeader(serviceName, categoryName, categoryLink);
-        
         const flashcardData = await loadFlashcardData(dataFiles);
 
         if (flashcardData && flashcardData.length > 0) {
@@ -58,10 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateHeader(serviceName, categoryName, categoryLink) {
         const header = document.getElementById('page-header');
-        // Corrige o link do breadcrumb para funcionar com o menu
-        const isServicePage = window.location.pathname.includes('/services/');
-        const pathPrefix = isServicePage ? '../' : '';
-
         header.innerHTML = `
             <h1>AWS ${serviceName}</h1>
             <p>Guia de estudo interativo para o serviço ${serviceName}.</p>
@@ -77,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let allFlashcards = [];
         try {
             for (const fileName of dataFiles) {
-                const response = await fetch(`../data/${fileName}`);
+                // Usa o mesmo pathPrefix para garantir que encontre a pasta data
+                const response = await fetch(`${pathPrefix}data/${fileName}`);
                 if (!response.ok) throw new Error(`Falha ao carregar ${fileName}`);
                 const cards = await response.json();
                 allFlashcards = allFlashcards.concat(cards);
