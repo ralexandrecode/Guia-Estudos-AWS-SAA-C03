@@ -1,10 +1,42 @@
-// --- GUIA DE ESTUDO AWS v2.1 CARREGADO (versão sem filtros) ---
-console.log("--- GUIA DE ESTUDO AWS v2.1 CARREGADO (versão sem filtros) ---");
+// --- GUIA DE ESTUDO AWS v2.2 CARREGADO (com menu dinâmico) ---
+console.log("--- GUIA DE ESTUDO AWS v2.2 CARREGADO (com menu dinâmico) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Função para carregar e injetar o menu
+    async function loadMenu() {
+        const menuPlaceholder = document.getElementById('menu-placeholder');
+        if (!menuPlaceholder) return;
+
+        try {
+            const isServicePage = window.location.pathname.includes('/services/');
+            const pathPrefix = isServicePage ? '../' : '';
+            
+            const response = await fetch(`${pathPrefix}assets/components/menu.html`);
+            if (!response.ok) throw new Error('Menu HTML not found');
+            
+            let menuHTML = await response.text();
+            
+            // --- A MÁGICA ACONTECE AQUI ---
+            const pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0 && segment.toLowerCase() !== 'index.html');
+            const repoName = pathSegments.length > 0 ? pathSegments[0] : '';
+            const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
+
+            // Substitui os links usando um placeholder
+            menuHTML = menuHTML.replace(/\{\{baseURL\}\}/g, baseURL);
+
+            // Injeta o HTML processado
+            menuPlaceholder.innerHTML = menuHTML;
+            
+        } catch (error) {
+            console.error('Failed to load menu:', error);
+            menuPlaceholder.innerHTML = '<p style="text-align:center; color:red;">Erro ao carregar menu.</p>';
+        }
+    }
+    
+    // Função principal da aplicação
     async function main() {
         const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) return;
+        if (!flashcardContainer) return; // Só executa se estiver em página de serviço
 
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
@@ -26,12 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateHeader(serviceName, categoryName, categoryLink) {
         const header = document.getElementById('page-header');
+        // Corrige o link do breadcrumb para funcionar com o menu
+        const isServicePage = window.location.pathname.includes('/services/');
+        const pathPrefix = isServicePage ? '../' : '';
+
         header.innerHTML = `
             <h1>AWS ${serviceName}</h1>
             <p>Guia de estudo interativo para o serviço ${serviceName}.</p>
             <nav class="breadcrumb">
-                <a href="../index.html">Categorias</a> > 
-                <a href="${categoryLink}">${categoryName}</a> >
+                <a href="${pathPrefix}index.html">Categorias</a> > 
+                <a href="${pathPrefix}${categoryLink}">${categoryName}</a> >
                 <strong>${serviceName}</strong>
             </nav>
         `;
@@ -55,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function initializeFlashcards(flashcardsData) {
-        // Elementos da Interface
         const flashcard = document.getElementById('flashcard');
         const cardQuestion = document.getElementById('card-question');
         const cardAnswer = document.getElementById('card-answer');
@@ -67,20 +102,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const jumpInput = document.getElementById('jump-input');
         const jumpBtn = document.getElementById('jump-btn');
 
-        // Variáveis de Estado
-        let allCards = [...flashcardsData]; // Agora só temos uma lista
+        let allCards = [...flashcardsData];
         let currentIndex = 0;
 
         function renderCard() {
             if (flashcard.classList.contains('is-flipped')) {
                 flashcard.classList.remove('is-flipped');
             }
-
             setTimeout(() => {
                 const cardData = allCards[currentIndex];
                 cardQuestion.textContent = cardData.question;
                 cardAnswer.innerHTML = cardData.answer;
-                // A categoria ainda é útil para aparecer no próprio card
                 cardCategoryFront.textContent = cardData.category;
                 cardCategoryBack.textContent = cardData.category;
                 updateCounter();
@@ -89,9 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         function updateCounter() {
             jumpInput.max = allCards.length;
-            cardCounter.textContent = allCards.length > 0
-                ? `${currentIndex + 1} / ${allCards.length}`
-                : '0 / 0';
+            cardCounter.textContent = allCards.length > 0 ? `${currentIndex + 1} / ${allCards.length}` : '0 / 0';
         }
 
         function showNextCard() {
@@ -118,10 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Ponto de entrada da inicialização
         renderCard();
-        
-        // Adicionar Listeners de evento
         flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
         prevBtn.addEventListener('click', showPrevCard);
         nextBtn.addEventListener('click', showNextCard);
@@ -141,5 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Ponto de entrada da aplicação
+    loadMenu();
     main();
 });
