@@ -278,3 +278,45 @@ strong, b {
     .card-answer p, .card-answer li { font-size: 0.95rem; }
     .nav-btn { padding: 10px 15px; font-size: 0.9rem;}
 }
+/* --- Estilos para a Navegação Central e "Ir Para" --- */
+.nav-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.jump-to-card {
+    display: flex;
+    align-items: center;
+}
+
+#jump-input {
+    width: 60px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    text-align: center;
+    font-size: 1rem;
+    -moz-appearance: textfield; /* Remove setas no Firefox */
+}
+
+#jump-input::-webkit-outer-spin-button,
+#jump-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Remove setas no Chrome, Safari, Edge */
+  margin: 0;
+}
+
+#jump-btn {
+    padding: 7px 12px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+#jump-btn:hover {
+    background-color: #3b4b61;
+}
