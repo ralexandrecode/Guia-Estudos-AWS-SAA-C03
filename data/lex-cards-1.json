@@ -1,1 +1,32 @@
-
+[
+    {
+        "category": "Conceitos Fundamentais",
+        "question": "O que é o Amazon Lex?",
+        "answer": "<h3>O Recepcionista Inteligente da sua Aplicação</h3><p>O Amazon Lex é um serviço da AWS para construir interfaces de conversação (chatbots e voicebots) em qualquer aplicação, usando voz e texto.</p><p><b>Analogia:</b> Pense no Lex como o cérebro por trás da Alexa. Ele usa a mesma tecnologia de Deep Learning para:</p><ul><li><b>ASR (Automatic Speech Recognition):</b> Converter fala em texto.</li><li><b>NLU (Natural Language Understanding):</b> Reconhecer a intenção do texto.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Lex não é apenas um chatbot. É um serviço de NLU que pode ser o 'front-end' conversacional para arquiteturas complexas, orquestrando outros serviços da AWS.</div>"
+    },
+    {
+        "category": "Conceitos Fundamentais",
+        "question": "Quais são os 4 componentes principais de um bot Lex?",
+        "answer": "<h3>Os 4 Pilares do Lex</h3><ol><li><b>Intent (Intenção):</b> O objetivo que o usuário quer alcançar. Ex: <code>OrderPizza</code>.</li><li><b>Utterance (Expressão):</b> As frases que o usuário pode dizer para acionar uma intenção.</li><li><b>Slot (Variável):</b> A informação necessária para cumprir a intenção. Ex: <code>{tamanho}</code>, <code>{sabor}</code>.</li><li><b>Fulfillment (Realização):</b> A ação tomada após coletar todos os slots, geralmente uma função <b>AWS Lambda</b>.</li></ol><div class='exam-tip'><b>Dica para o Exame:</b> A questão SEMPRE associa <b>Fulfillment</b> com <b>AWS Lambda</b>. Se a pergunta descreve uma lógica de negócio customizada, a resposta é Lambda.</div>"
+    },
+    {
+        "category": "Arquitetura e Integração",
+        "question": "Descreva a arquitetura padrão de um chatbot Lex com lógica de backend.",
+        "answer": "<h3>O Trio Clássico: Lex + Lambda + DynamoDB</h3><p>Esta é a arquitetura mais comum e cobrada no exame:</p><ol><li><b>Usuário -> Canal -> Amazon Lex:</b> O usuário interage com o bot.</li><li><b>Lex -> AWS Lambda (Fulfillment):</b> Lex invoca uma função Lambda via <b>Resource-Based Policy</b>.</li><li><b>Lambda -> Serviços (DynamoDB):</b> A Lambda executa a lógica de negócio via <b>IAM Execution Role</b>.</li><li><b>Lambda -> Lex -> Usuário:</b> A Lambda retorna a resposta.</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Separe as responsabilidades. Lex gerencia a conversa. Lambda gerencia a lógica. Isso cria um sistema desacoplado e escalável.</div>"
+    },
+    {
+        "category": "Arquitetura e Integração",
+        "question": "Como o Lex se integra com o Amazon Connect?",
+        "answer": "<h3>Potencializando o Contact Center</h3><p>A integração com o <b>Amazon Connect</b> é um caso de uso principal para criar um <b>IVR (Interactive Voice Response)</b> conversacional.</p><ul><li>O Connect captura o áudio do cliente e envia ao Lex.</li><li>O Lex processa a intenção e os slots.</li><li>O bot pode resolver o problema sozinho (usando Lambda) ou transferir a chamada para um agente humano com todo o contexto.</li></ul><div class='exam-tip'><b>Dica para o Exame:</b> Se a questão fala sobre 'modernizar um call center' ou 'criar um IVR conversacional', a combinação correta é <b>Amazon Connect + Amazon Lex</b>.</div>"
+    },
+    {
+        "category": "Questões do Exame",
+        "question": "Como você garante que um bot de agendamento só aceite horários comerciais (9h-18h)?",
+        "answer": "<h3>Validação de Slots com Lambda</h3><p>A melhor abordagem é usar uma função <b>AWS Lambda para validação</b>, configurada como um <b>Code Hook</b> na intenção do Lex.</p><ol><li>O usuário fornece um horário.</li><li>O Lex invoca a Lambda de validação.</li><li>A Lambda verifica a lógica de negócio (está entre 9h e 18h?).</li><li>Se inválido, a Lambda retorna uma mensagem ao Lex para pedir a informação novamente.</li></ol><div class='exam-tip'><b>Dica para o Exame:</b> Qualquer cenário que exija <b>validação dinâmica ou baseada em lógica de negócio</b> aponta para o uso de uma função Lambda como <b>code hook de validação</b>.</div>"
+    },
+    {
+        "category": "Segurança e Boas Práticas",
+        "question": "Como você gerencia diferentes versões (dev, test, prod) do seu bot Lex?",
+        "answer": "<h3>Versionamento e Aliases</h3><p>O Lex suporta um ciclo de vida de desenvolvimento robusto:</p><ul><li><b>Versões:</b> São snapshots imutáveis e numerados do seu bot (v1, v2). O desenvolvimento é feito na versão <code>$LATEST</code>.</li><li><b>Aliases:</b> São ponteiros para versões específicas (ex: <code>PROD</code> aponta para v2, <code>TEST</code> aponta para v3).</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Essa prática é fundamental para CI/CD e implantações seguras (Blue/Green). Para atualizar a produção, você simplesmente remapeia o alias <code>PROD</code> para a nova versão testada.</div>"
+    }
+]
