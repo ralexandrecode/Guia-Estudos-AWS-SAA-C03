@@ -10,6 +10,10 @@
     --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+html {
+    scroll-behavior: smooth; /* Adicionado para rolagem suave */
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -25,7 +29,6 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding-bottom: 40px; /* Adicionado espaço no final */
 }
 
 .container {
@@ -279,13 +282,15 @@ strong, b {
     color: var(--secondary-color);
 }
 
-/* --- Estilos para o Menu Principal (NOVO) --- */
+/* --- Estilos para o Menu Principal --- */
 #menu-placeholder {
     width: 100%;
     background-color: var(--primary-color);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     padding: 10px 0;
-    margin-bottom: 25px;
+    position: sticky; /* Faz o menu grudar no topo */
+    top: 0;
+    z-index: 1000;
 }
 
 .main-menu {
@@ -311,24 +316,12 @@ strong, b {
     background-color: rgba(255, 153, 0, 0.2); /* Laranja secundário com transparência */
 }
 
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-    header h1 { font-size: 2rem; }
-    .flashcard-container { height: 450px; }
-    .card-question { font-size: 1.5rem; }
-    .card-answer h3 { font-size: 1.3rem; }
-    .card-answer p, .card-answer li { font-size: 0.95rem; }
-    .nav-btn { padding: 10px 15px; font-size: 0.9rem;}
-    .main-menu { justify-content: space-around; gap: 10px; }
-    .main-menu a { font-size: 1rem; }
-}
-
 /* --- Estilos para o Rodapé Principal --- */
 .main-footer {
     width: 100%;
     background-color: var(--primary-color);
     color: #f0f2f5; /* Cor de texto mais clara para contraste */
-    padding: 30px 0 15px 0;
+    padding: 40px 0 15px 0;
     margin-top: 50px; /* Empurra o rodapé para baixo do conteúdo */
     clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%); /* Efeito de design sutil no topo */
 }
@@ -392,8 +385,17 @@ strong, b {
     color: #aeb4bc;
 }
 
-/* Responsividade para o rodapé */
+
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
+    header h1 { font-size: 2rem; }
+    .flashcard-container { height: 450px; }
+    .card-question { font-size: 1.5rem; }
+    .card-answer h3 { font-size: 1.3rem; }
+    .card-answer p, .card-answer li { font-size: 0.95rem; }
+    .nav-btn { padding: 10px 15px; font-size: 0.9rem;}
+    .main-menu { justify-content: space-around; gap: 10px; }
+    .main-menu a { font-size: 1rem; }
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -403,3 +405,27 @@ strong, b {
     }
 }
 
+/* --- Estilos para a página de erro 404 --- */
+.error-container {
+    max-width: 600px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.error-container h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+.error-container p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+.error-container .cta-button {
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+.error-container .cta-button:hover {
+    transform: scale(1.05);
+}
