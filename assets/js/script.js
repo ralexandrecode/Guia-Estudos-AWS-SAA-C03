@@ -1,5 +1,5 @@
-// PROVA FINAL: SE VOCÊ VIR ESTA MENSAGEM NO CONSOLE (F12), O SCRIPT NOVO CARREGOU.
-console.log("--- GUIA DE ESTUDO AWS v2.0 CARREGADO ---");
+// --- GUIA DE ESTUDO AWS v2.1 CARREGADO (versão sem filtros) ---
+console.log("--- GUIA DE ESTUDO AWS v2.1 CARREGADO (versão sem filtros) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
     async function main() {
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function initializeFlashcards(flashcardsData) {
+        // Elementos da Interface
         const flashcard = document.getElementById('flashcard');
         const cardQuestion = document.getElementById('card-question');
         const cardAnswer = document.getElementById('card-answer');
@@ -63,47 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const cardCounter = document.getElementById('card-counter');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const categoryFiltersContainer = document.getElementById('category-filters');
         const jumpInput = document.getElementById('jump-input');
         const jumpBtn = document.getElementById('jump-btn');
 
-        let currentFilter = 'Todos';
-        let filteredData = [];
+        // Variáveis de Estado
+        let allCards = [...flashcardsData]; // Agora só temos uma lista
         let currentIndex = 0;
-
-        function createCategoryFilters() {
-            const categories = ['Todos', ...new Set(flashcardsData.map(card => card.category))];
-            categoryFiltersContainer.innerHTML = ''; 
-            console.log("Criando filtros para as categorias:", categories); // Log para depuração
-            
-            categories.forEach(category => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn';
-                btn.dataset.category = category;
-                btn.textContent = category;
-                if (category === 'Todos') btn.classList.add('active');
-                
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    currentFilter = category;
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    filterAndRender();
-                });
-                categoryFiltersContainer.appendChild(btn);
-            });
-        }
-        
-        function filterAndRender() {
-            filteredData = (currentFilter === 'Todos') 
-                ? [...flashcardsData] 
-                : flashcardsData.filter(card => card.category === currentFilter);
-            
-            currentIndex = 0;
-            jumpInput.value = '';
-            jumpInput.max = filteredData.length;
-            renderCard();
-        }
 
         function renderCard() {
             if (flashcard.classList.contains('is-flipped')) {
@@ -111,18 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             setTimeout(() => {
-                if (filteredData.length === 0) {
-                    cardQuestion.textContent = 'Nenhum card encontrado para este filtro.';
-                    cardAnswer.innerHTML = '';
-                    cardCategoryFront.textContent = currentFilter;
-                    cardCategoryBack.textContent = currentFilter;
-                    updateCounter();
-                    return;
-                }
-
-                const cardData = filteredData[currentIndex];
+                const cardData = allCards[currentIndex];
                 cardQuestion.textContent = cardData.question;
                 cardAnswer.innerHTML = cardData.answer;
+                // A categoria ainda é útil para aparecer no próprio card
                 cardCategoryFront.textContent = cardData.category;
                 cardCategoryBack.textContent = cardData.category;
                 updateCounter();
@@ -130,39 +88,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         function updateCounter() {
-            cardCounter.textContent = filteredData.length > 0
-                ? `${currentIndex + 1} / ${filteredData.length}`
+            jumpInput.max = allCards.length;
+            cardCounter.textContent = allCards.length > 0
+                ? `${currentIndex + 1} / ${allCards.length}`
                 : '0 / 0';
         }
 
         function showNextCard() {
-            if (filteredData.length === 0) return;
-            currentIndex = (currentIndex + 1) % filteredData.length;
+            if (allCards.length === 0) return;
+            currentIndex = (currentIndex + 1) % allCards.length;
             renderCard();
         }
 
         function showPrevCard() {
-            if (filteredData.length === 0) return;
-            currentIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
+            if (allCards.length === 0) return;
+            currentIndex = (currentIndex - 1 + allCards.length) % allCards.length;
             renderCard();
         }
 
         function jumpToCard() {
             const pageNum = parseInt(jumpInput.value, 10);
-            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= filteredData.length) {
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= allCards.length) {
                 currentIndex = pageNum - 1;
                 renderCard();
                 jumpInput.value = '';
             } else {
-                alert(`Por favor, insira um número entre 1 e ${filteredData.length}.`);
+                alert(`Por favor, insira um número entre 1 e ${allCards.length}.`);
                 jumpInput.value = '';
             }
         }
         
         // Ponto de entrada da inicialização
-        createCategoryFilters();
-        filterAndRender();
+        renderCard();
         
+        // Adicionar Listeners de evento
         flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
         prevBtn.addEventListener('click', showPrevCard);
         nextBtn.addEventListener('click', showNextCard);
@@ -172,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.addEventListener('keydown', (e) => {
-            if (document.activeElement === jumpInput) return; // Não interfere se estiver digitando
+            if (document.activeElement === jumpInput) return;
             if (e.key === 'ArrowRight') showNextCard();
             if (e.key === 'ArrowLeft') showPrevCard();
             if (e.key === ' ') {
