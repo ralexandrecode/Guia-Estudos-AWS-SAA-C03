@@ -1,0 +1,187 @@
+[
+  {
+    "category": "Performance",
+    "question": "Como otimizar o EFS para workloads de banco de dados?",
+    "answer": "<h3>EFS para Databases</h3><p>Recomendações para MySQL/PostgreSQL:</p><ul><li>Use Provisioned Throughput</li><li>Otimize configurações de cache</li><li>Considere EFS para backups, não dados ativos</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para OLTP, prefira EBS ou soluções managed como RDS.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS tem latência maior que EBS para operações intensivas.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como usar o EFS com o AWS Transfer Family?",
+    "answer": "<h3>Transferência de Arquivos Segura</h3><p>Configure o Transfer Family para usar EFS como backend:</p><ol><li>Crie servidor SFTP/FTPS</li><li>Especifique sistema EFS como armazenamento</li><li>Gerencie usuários via IAM ou serviço de diretório</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Ideal para migrar workflows FTP locais para AWS.</div><div class='exam-tip'><b>Dica para o Exame:</b> O Transfer Family suporta autenticação com AD, LDAP e Cognito.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como implementar MFA Delete no EFS?",
+    "answer": "<h3>Proteção contra Exclusão</h3><p>O EFS não suporta MFA Delete nativamente:</p><ul><li>Implemente via políticas IAM condicionais</li><li>Exija MFA para ações de exclusão</li><li>Use AWS Organizations SCPs</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Proteja recursos críticos com múltiplas camadas de segurança.</div><div class='exam-tip'><b>Dica para o Exame:</b> O S3 suporta MFA Delete nativo, mas EFS não.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Como reduzir custos do EFS para dados arquivados?",
+    "answer": "<h3>Estratégias de Economia</h3><p>Para dados raramente acessados:</p><ul><li>Mova para EFS Infrequent Access</li><li>Archive para S3 Glacier via DataSync</li><li>Exclua dados desnecessários automaticamente</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Implemente políticas de lifecycle baseadas em padrões de acesso.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS-IA é mais caro que S3 Glacier mas oferece acesso mais rápido.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Qual é a retenção máxima de backups do EFS?",
+    "answer": "<h3>Retenção de Backups</h3><p>Com AWS Backup:</p><ul><li>Retenção indefinida (até 100 anos)</li><li>Suporte a cold storage (mais barato)</li><li>Políticas de retenção flexíveis</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Alinhe políticas de retenção com requisitos regulatórios.</div><div class='exam-tip'><b>Dica para o Exame:</b> Backups no cold storage têm custo menor mas maior tempo de recuperação.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Como implementar failover automático para instâncias EC2 usando EFS?",
+    "answer": "<h3>Failover com EFS</h3><p>1. Distribua instâncias em múltiplas AZs<br>2. Monte o mesmo sistema EFS em todas<br>3. Use ELB para direcionar tráfego<br>4. Configure health checks</p><div class='insight'><b>Insight de Arquiteto:</b> Combine com Auto Scaling para resiliência completa.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS permite acesso simultâneo de múltiplas instâncias.</div>"
+  },
+  {
+    "category": "Monitoramento",
+    "question": "Como configurar alertas para uso de armazenamento no EFS?",
+    "answer": "<h3>Alertas de Armazenamento</h3><p>No CloudWatch:</p><ol><li>Crie alarme para métrica StorageBytes</li><li>Defina limite (ex: 80% da capacidade esperada)</li><li>Configure ações (SNS, Auto Scaling)</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Implemente alertas em múltiplos níveis (80%, 90%, 95%).</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS escala automaticamente, mas monitorar uso ajuda no planejamento.</div>"
+  },
+  {
+    "category": "Escalabilidade",
+    "question": "Qual é o tempo de provisionamento para aumento de capacidade no EFS?",
+    "answer": "<h3>Provisionamento Imediato</h3><p>O EFS escala automaticamente e instantaneamente:</p><ul><li>Sem necessidade de pré-provisionamento</li><li>Capacidade ajustada em tempo real</li><li>Performance escala com armazenamento</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para cargas imprevisíveis ou crescimento rápido.</div><div class='exam-tip'><b>Dica para o Exame:</b> Diferente de EBS, não há limite pré-definido de capacidade.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como montar EFS em instâncias EC2 via Auto Scaling?",
+    "answer": "<h3>Montagem Automatizada</h3><p>Use User Data no launch template:</p><pre>#!/bin/bash\nyum install -y amazon-efs-utils\nmkdir /efs\nmount -t efs fs-12345678:/ /efs</pre><div class='insight'><b>Insight de Arquiteto:</b> Teste scripts em instâncias temporárias antes de implementar em produção.</div><div class='exam-tip'><b>Dica para o Exame:</b> Adicione ao /etc/fstab para persistência após reboot.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como auditar permissões de arquivos no EFS?",
+    "answer": "<h3>Auditoria de Permissões</h3><p>Use ferramentas como:</p><ul><li>AWS Config (gravação contínua)</li><li>Scripts customizados com AWS CLI</li><li>Integração com sistemas SIEM</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Automatize verificações de permissões excessivas.</div><div class='exam-tip'><b>Dica para o Exame:</b> O CloudTrail não registra operações de nível de arquivo, apenas de controle.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Como calcular custo de operações no EFS-IA?",
+    "answer": "<h3>Cálculo de Custos IA</h3><p>Fórmula básica:</p><p>Custo = (Armazenamento IA × $0.025) + (Operações de Leitura / 1000 × $0.01)</p><div class='insight'><b>Insight de Arquiteto:</b> Monitore ReadIOBytes para estimar operações.</div><div class='exam-tip'><b>Dica para o Exame:</b> Operações de escrita não têm custo adicional no EFS-IA.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como restaurar um backup do EFS em outra região?",
+    "answer": "<h3>Restauração Cross-Region</h3><p>Processo via AWS Backup:</p><ol><li>Copie o vault de backup para a região destino</li><li>Inicie a restauração na nova região</li><li>Configure novos mount targets</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Ideal para estratégias de DR multi-region.</div><div class='exam-tip'><b>Dica para o Exame:</b> A restauração cross-region gera custos de transferência de dados.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Qual é o impacto de uma falha de AZ em um sistema EFS Standard?",
+    "answer": "<h3>Resiliência Multi-AZ</h3><p>O EFS Standard é projetado para:</p><ul><li>Continuar operando durante falhas de AZ</li><li>Manter acesso a dados</li><li>Sem perda de dados ou disponibilidade</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Distribua instâncias EC2 em múltiplas AZs para resiliência completa.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS replica dados em pelo menos 3 AZs simultaneamente.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "Como medir latência no EFS?",
+    "answer": "<h3>Métricas de Latência</h3><p>Use CloudWatch Metrics:</p><ul><li>TotalReadLatency</li><li>TotalWriteLatency</li><li>MetadataLatency</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Compare latência com PercentIOLimit para identificar throttling.</div><div class='exam-tip'><b>Dica para o Exame:</b> Latência alta pode indicar problemas de rede ou falta de créditos de burst.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como usar o EFS com o AWS Batch?",
+    "answer": "<h3>Compute Jobs com Armazenamento Compartilhado</h3><p>Configure job definitions com:</p><ul><li>Ponto de montagem EFS</li><li>Compartilhamento de dados entre containers</li><li>Persistência de resultados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para workflows de processamento distribuído.</div><div class='exam-tip'><b>Dica para o Exame:</b> O AWS Batch suporta montagem EFS nativamente.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como implementar isolamento de dados entre departamentos no mesmo EFS?",
+    "answer": "<h3>Isolamento com Posix Permissions</h3><p>Use:</p><ul><li>Diferentes UIDs/GIDs por aplicação</li><li>Diretórios separados com permissões restritas</li><li>Combine com políticas IAM</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Considere sistemas de arquivos separados para requisitos de segurança estritos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Permissões POSIX são aplicadas no nível do cliente, não pelo serviço EFS.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Qual é o custo de mount targets no EFS?",
+    "answer": "<h3>Custo de Mount Targets</h3><p>Os mount targets são gratuitos:</p><ul><li>Sem custo adicional por criação</li><li>IPs elásticos associados podem ter custo</li><li>Dados transferidos através do mount target seguem preço padrão</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crie apenas mount targets necessários para reduzir superfície de ataque.</div><div class='exam-tip'><b>Dica para o Exame:</b> Recomenda-se pelo menos 2 mount targets (em AZs diferentes) para alta disponibilidade.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como agendar backups fora do horário comercial?",
+    "answer": "<h3>Agendamento de Backups</h3><p>No AWS Backup:</p><ol><li>Crie um plano de backup</li><li>Defina janela de backup (ex: 20:00-06:00)</li><li>Ajuste frequência conforme necessidade</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Escolha horários de baixa atividade para minimizar impacto.</div><div class='exam-tip'><b>Dica para o Exame:</b> Backups completos são incrementais após o primeiro backup.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Como testar a resiliência do EFS?",
+    "answer": "<h3>Testes de Resiliência</h3><p>Use AWS Fault Injection Simulator:</p><ol><li>Simule falha de AZ</li><li>Monitore métricas de disponibilidade</li><li>Verifique acesso contínuo aos dados</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Execute testes regularmente como parte de exercícios de DR.</div><div class='exam-tip'><b>Dica para o Exame:</b> O FIS ajuda a validar arquiteturas sem impactar produção.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "O que é o modo General Purpose no EFS?",
+    "answer": "<h3>Modo de Performance Padrão</h3><p>Otimizado para maioria das cargas:</p><ul><li>Baixa latência</li><li>Ideal para uso geral</li><li>Recomendado para maioria dos casos</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Comece com General Purpose e mude para Max I/O apenas se necessário.</div><div class='exam-tip'><b>Dica para o Exame:</b> O modo de performance não pode ser alterado após criação.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como compartilhar um diretório específico do EFS com diferentes grupos?",
+    "answer": "<h3>Compartilhamento Granular</h3><p>Use exportações NFS:</p><ol><li>Configure /etc/exports no cliente</li><li>Especifique diretórios e permissões</li><li>Use no_root_squash para acesso root controlado</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Combine com autenticação LDAP/AD para gerenciamento centralizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Permissões são aplicadas no cliente, não no nível do EFS.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como implementar VPC endpoints para acesso privado ao EFS?",
+    "answer": "<h3>Endpoint Privado</h3><p>Crie Interface VPC Endpoint:</p><ol><li>Selecione serviço com.amazonaws.com</li><li>Escolha subredes e security groups</li><li>Configure políticas de acesso</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Use endpoints em subredes privadas para segurança máxima.</div><div class='exam-tip'><b>Dica para o Exame:</b> VPC endpoints evitam tráfego pela internet pública.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Como identificar oportunidades de economia com EFS-IA?",
+    "answer": "<h3>Análise de Uso</h3><p>Use EFS Metrics:</p><ul><li>Monitor AccessTime</li><li>Identifique arquivos não acessados > 30 dias</li><li>Estime economia potencial</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Implemente relatórios mensais de otimização de custos.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS não fornece relatórios de acesso por arquivo automaticamente.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Qual é a diferença entre backup e snapshot no EFS?",
+    "answer": "<h3>Backup vs Snapshot</h3><p><b>Backup</b>: Serviço gerenciado com políticas de retenção<br><b>Snapshot</b>: Cópia pontual manual (não gerenciada)</p><div class='insight'><b>Insight de Arquiteto:</b> Prefira AWS Backup para gestão automatizada e compliance.</div><div class='exam-tip'><b>Dica para o Exame:</b> Snapshots manuais não são recomendados para ambientes produtivos.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Como o EFS trata consistência de dados durante falhas?",
+    "answer": "<h3>Consistência Forte</h3><p>O EFS oferece:</p><ul><li>Consistência forte para operações de arquivo</li><li>Consistência eventual para metadados</li><li>Resiliência a falhas parciais</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Projete aplicações para lidar com consistência eventual de listagens de diretórios.</div><div class='exam-tip'><b>Dica para o Exame:</b> Diferente de S3, o EFS oferece consistência forte para operações de arquivo.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "Como melhorar performance para workloads de machine learning?",
+    "answer": "<h3>Otimização para ML</h3><p>Recomendações:</p><ul><li>Use instâncias com maior largura de banda de rede</li><li>Implemente Provisioned Throughput</li><li>Considere FSx for Lustre para alta performance</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para datasets muito grandes, pré-carregue dados em instâncias locais.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS pode ser gargalo para treinamento intensivo de modelos grandes.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como migrar dados de um NAS local para EFS?",
+    "answer": "<h3>Migração com DataSync</h3><p>Processo recomendado:</p><ol><li>Instale agente DataSync no local</li><li>Configure tarefa de transferência</li><li>Execute sincronização inicial</li><li>Agende sincronizações incrementais</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Use VPN ou Direct Connect para transferência segura.</div><div class='exam-tip'><b>Dica para o Exame:</b> O DataSync otimiza transferência com compressão e paralelismo.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como integrar EFS com AWS KMS?",
+    "answer": "<h3>Criptografia com KMS</h3><p>Habilite durante criação:</p><ol><li>Selecione 'Enable encryption'</li><li>Escolha KMS key (AWS-managed ou custom)</li><li>Defina permissões na política da chave</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Use CMK customizadas para controle granular e rotação.</div><div class='exam-tip'><b>Dica para o Exame:</b> A criptografia não pode ser habilitada após criação do sistema.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Qual é o custo de dados no EFS durante restauração de backup?",
+    "answer": "<h3>Custos de Restauração</h3><p>Durante restauração:</p><ul><li>Armazenamento no sistema original continua sendo cobrado</li><li>Armazenamento no sistema restaurado começa a ser cobrado</li><li>Operações de leitura durante restauração podem ter custo</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Planeje restaurações para períodos de baixa atividade para reduzir custos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Restaurações são operações intensivas que podem gerar picos de custo.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como verificar integridade de backups do EFS?",
+    "answer": "<h3>Verificação de Integridade</h3><p>Métodos recomendados:</p><ul><li>Execute restaurações de teste periódicas</li><li>Use checksums para comparar dados</li><li>Implemente validação automatizada com Lambda</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Inclua verificação de integridade em pipelines de CI/CD.</div><div class='exam-tip'><b>Dica para o Exame:</b> O AWS Backup valida automaticamente integridade durante criação.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Como implementar acesso ao EFS durante falhas de DNS?",
+    "answer": "<h3>Resiliência de DNS</h3><p>Use IPs dos mount targets diretamente:</p><ul><li>Obtenha IPs via DescribeMountTargets</li><li>Configure /etc/hosts com múltiplos IPs</li><li>Implemente lógica de failover na aplicação</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Prefira resolução DNS padrão para maior flexibilidade.</div><div class='exam-tip'><b>Dica para o Exame:</b> O DNS do EFS retorna múltiplos IPs para resiliência.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "Como o EFS compara ao EBS em termos de IOPS?",
+    "answer": "<h3>IOPS: EFS vs EBS</h3><p><b>EFS</b>: IOPS escaláveis com armazenamento (base + burst)<br><b>EBS</b>: IOPS provisionados (gp3) ou limitados por volume</p><div class='insight'><b>Insight de Arquiteto:</b> Para alta performance previsível, prefira EBS Provisioned IOPS.</div><div class='exam-tip'><b>Dica para o Exame:</b> O EFS não tem limite máximo de IOPS, mas performance depende de outros fatores.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como usar o EFS com o AWS AppSync?",
+    "answer": "<h3>GraphQL com Armazenamento Compartilhado</h3><p>Implemente resolvers customizados:</p><ol><li>Use Lambda como resolver</li><li>Monte EFS na função Lambda</li><li>Acesse arquivos diretamente do resolver</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Ideal para servir arquivos estáticos ou dados de referência.</div><div class='exam-tip'><b>Dica para o Exame:</b> O AppSync não acessa EFS diretamente, requer Lambda intermediária.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como implementar acesso temporário ao EFS com expiração?",
+    "answer": "<h3>Acesso Temporário</h3><p>Use STS AssumeRole com:</p><ul><li>Duração máxima de 12 horas</li><li>Políticas de acesso restrito</li><li>Condições baseadas em tempo</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Revogue manualmente sessões se necessário antes da expiração.</div><div class='exam-tip'><b>Dica para o Exame:</b> Sessões STS podem ser configuradas para durar de 15 minutos a 12 horas.</div>"
+  },
+  {
+    "category": "Custos",
+    "question": "Qual é o custo de transferência entre EFS e S3 na mesma região?",
+    "answer": "<h3>Transferência Interna</h3><p>Transferência entre serviços AWS na mesma região:</p><ul><li>Grátis para EFS ↔ EC2, ECS, Lambda</li><li>Grátis para EFS ↔ S3 via VPC Endpoint</li><li>Custo normal para internet ou cross-region</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use VPC Endpoints para acesso a S3 sem sair da rede AWS.</div><div class='exam-tip'><b>Dica para o Exame:</b> Transferência via internet tem custo, mesmo entre serviços na mesma região.</div>"
+  },
+  {
+    "category": "Backup",
+    "question": "Como automatizar retenção de backups antigos?",
+    "answer": "<h3>Lifecycle de Backups</h3><p>No AWS Backup:</p><ol><li>Defina políticas de retenção</li><li>Configure transição para cold storage</li><li>Agende exclusão automática</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Alinhe políticas com requisitos legais e de compliance.</div><div class='exam-tip'><b>Dica para o Exame:</b> Backups podem ser automaticamente movidos para armazenamento de baixo custo após 90 dias.</div>"
+  },
+  {
+    "category": "Disponibilidade",
+    "question": "Como monitorar o status de saúde do EFS?",
+    "answer": "<h3>Monitoramento de Saúde</h3><p>Use:</p><ul><li>Status checks no console AWS</li><li>CloudWatch StatusCheckFailed métrica</li><li>Eventos do Personal Health Dashboard</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Integre com sistemas de alerta como PagerDuty ou OpsGenie.</div><div class='exam-tip'><b>Dica para o Exame:</b> O Personal Health Dashboard fornece alertas específicos para sua conta.</div>"
+  }
+]
