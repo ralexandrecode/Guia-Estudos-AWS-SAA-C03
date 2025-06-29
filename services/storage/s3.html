@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon S3 - Guia de Estudo AWS</title>
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="S3">
+    <meta name="aws-service-category" content="Storage">
+    <meta name="aws-service-category-link" content="categories/storage.html">
+    <meta name="aws-service-data-files" content="s3-cards-1.json">
+    
+    <!-- CAMINHO CORRIGIDO: Dois níveis acima -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+    
+    <div class="container">
+        <!-- Header dinâmico será gerado pelo JavaScript -->
+        <header id="page-header"></header>
+        
+        <main>
+            <!-- Container do flashcard -->
+            <div id="flashcard-container">
+                <div id="flashcard" class="flashcard">
+                    <div class="flashcard-inner">
+                        <!-- Frente do card -->
+                        <div class="flashcard-front">
+                            <div class="card-category" id="card-category-front"></div>
+                            <div class="card-content">
+                                <h3 id="card-question">Carregando pergunta...</h3>
+                            </div>
+                        </div>
+                        <!-- Verso do card -->
+                        <div class="flashcard-back">
+                            <div class="card-category" id="card-category-back"></div>
+                            <div class="card-content">
+                                <div id="card-answer">Carregando resposta...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Controles de navegação -->
+                <div class="flashcard-controls">
+                    <button id="prev-btn">← Anterior</button>
+                    <span id="card-counter">0 / 0</span>
+                    <button id="next-btn">Próximo →</button>
+                </div>
+                
+                <!-- Jump para card específico -->
+                <div id="jump-container" class="jump-container">
+                    <input type="number" id="jump-input" placeholder="Ir para card..." min="1">
+                    <button id="jump-btn">Ir</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+    <!-- CAMINHO CORRIGIDO -->
+    <script src="../../assets/js/script.js"></script>
+</body>
+</html>
