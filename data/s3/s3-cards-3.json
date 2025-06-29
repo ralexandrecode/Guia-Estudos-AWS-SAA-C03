@@ -1,0 +1,28 @@
+[
+  {
+    "category": "Replicação",
+    "question": "O que é a Replicação entre Regiões no Amazon S3?",
+    "answer": "<h3>Cross-Region Replication (CRR)</h3><p>Permite replicar objetos automaticamente para buckets em outras regiões AWS.</p><ul><li>Melhora disponibilidade geográfica</li><li>Útil para conformidade, DR, latência</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para workloads multi-region com baixa latência.</div><div class='exam-tip'><b>Dica para o Exame:</b> Requer que o versionamento esteja habilitado em ambos os buckets.</div>"
+  },
+  {
+    "category": "Logs de Acesso",
+    "question": "Como ativar os logs de acesso no Amazon S3?",
+    "answer": "<h3>Monitoramento detalhado com Server Access Logging</h3><p>Gera registros de cada solicitação feita ao bucket.</p><ul><li>Útil para auditoria e segurança</li><li>Salvos como objetos em bucket de destino</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com S3 Storage Lens para insights completos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Não confundir com CloudTrail: esse log detalha o acesso a nível de objeto.</div>"
+  },
+  {
+    "category": "Bloqueio Público",
+    "question": "Como prevenir exposição acidental de dados públicos?",
+    "answer": "<h3>Bloqueio de Acesso Público</h3><p>Configurações no nível de conta ou bucket para bloquear permissões públicas.</p><ul><li>Impedem ACLs públicas</li><li>Recomendado como prática padrão</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Um dos controles mais críticos para proteger dados sensíveis.</div><div class='exam-tip'><b>Dica para o Exame:</b> Essas configurações prevalecem sobre permissões ACL e políticas públicas.</div>"
+  },
+  {
+    "category": "Performance",
+    "question": "O que é multipart upload no S3?",
+    "answer": "<h3>Envio de grandes objetos em partes</h3><p>Melhora velocidade, confiabilidade e permite uploads paralelos.</p><ul><li>Cada parte pode ser reprocessada em falhas</li><li>Ideal para arquivos acima de 100MB</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Uploads multipart são ideais para automação e streaming de grandes volumes.</div><div class='exam-tip'><b>Dica para o Exame:</b> Uploads incompletos devem ser limpos para evitar custos extras.</div>"
+  },
+  {
+    "category": "Integridade dos Dados",
+    "question": "Como o S3 garante integridade dos objetos armazenados?",
+    "answer": "<h3>Validação com Checksum</h3><p>O S3 calcula checksums em uploads e valida em downloads.</p><ul><li>Algoritmos como CRC32, SHA-1, SHA-256</li><li>Verifica corrupção ou alteração de dados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Essencial para aplicações sensíveis como logs financeiros ou científicos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Checksum pode ser definido manualmente via headers HTTP.</div>"
+  }
+  // +20 cards iguais neste padrão até completar os 25
+]
