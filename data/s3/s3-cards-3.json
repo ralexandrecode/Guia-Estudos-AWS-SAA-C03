@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Gerenciamento de Acesso",
+    "question": "Como usar políticas baseadas em identidade no Amazon S3?",
+    "answer": "<h3>IAM Policies</h3><p>Permitem controlar acesso ao S3 com base em usuários, grupos e funções.</p><ul><li>Definidas no IAM</li><li>Permissão para ações como GetObject, PutObject, ListBucket</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use políticas baseadas em identidade para centralizar o controle de acesso em todo o ambiente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Combine com tags para granularidade no controle de acesso.</div>"
+  },
+  {
+    "category": "Logs",
+    "question": "Como habilitar o S3 Server Access Logging?",
+    "answer": "<h3>Logs detalhados de acesso</h3><p>Registra todas as requisições feitas ao bucket.</p><ul><li>Armazenados em outro bucket</li><li>Útil para auditoria e segurança</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para trilhas de auditoria e análise de uso do bucket.</div><div class='exam-tip'><b>Dica para o Exame:</b> O bucket de destino não pode ser o mesmo do logging.</div>"
+  },
+  {
+    "category": "Replicação",
+    "question": "O que é Replication Time Control (RTC) no Amazon S3?",
+    "answer": "<h3>Garantia de replicação rápida</h3><p>Garante que 99.99% dos objetos sejam replicados em até 15 minutos.</p><ul><li>Aplica-se à Replicação entre Regiões</li><li>Serviço adicional pago</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Útil para aplicações com requisitos estritos de RTO.</div><div class='exam-tip'><b>Dica para o Exame:</b> RTC pode ser combinado com replicação para conformidade regulatória.</div>"
+  },
+  {
+    "category": "Gerenciamento de Custos",
+    "question": "Como monitorar e controlar o uso de S3 com AWS Budgets?",
+    "answer": "<h3>Alertas proativos de custo</h3><p>Permite criar orçamentos para acompanhar o uso e gerar alertas.</p><ul><li>Aplicável por serviço (ex: S3)</li><li>Integra com notificações e AWS Chatbot</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Fundamental para evitar surpresas em ambientes com volume variável de dados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pode acionar notificações por e-mail ou SNS ao atingir limites definidos.</div>"
+  },
+  {
+    "category": "Metadados",
+    "question": "O que são metadados de objetos no Amazon S3?",
+    "answer": "<h3>Informações adicionais sobre objetos</h3><p>Podem ser metadados padrão (Content-Type, Last-Modified) ou definidos pelo usuário.</p><ul><li>São armazenados com o objeto</li><li>Podem afetar o comportamento de apps</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Úteis para controle de cache, exibição e manipulação dos arquivos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Metadados do usuário devem começar com o prefixo <code>x-amz-meta-</code>.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "É possível aplicar regras de ciclo de vida por tag?",
+    "answer": "<h3>Gerenciamento baseado em tags</h3><p>Sim, você pode definir políticas de expiração ou transição usando tags específicas.</p><ul><li>Facilita controle seletivo</li><li>Melhora organização e automação</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Permite aplicar regras distintas dentro do mesmo bucket.</div><div class='exam-tip'><b>Dica para o Exame:</b> Ideal para buckets com diferentes tipos de dados no mesmo namespace.</div>"
+  },
+  {
+    "category": "Inteligência Artificial",
+    "question": "Como o Amazon S3 pode ser integrado a modelos de IA/ML?",
+    "answer": "<h3>Armazenamento para datasets</h3><p>Serve como origem para treinamento e validação de modelos em serviços como SageMaker.</p><ul><li>Escalável e altamente disponível</li><li>Integra via URI do S3 (ex: <code>s3://bucket/path</code>)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Padronize a estrutura de pastas e metadados para facilitar processamento em pipelines.</div><div class='exam-tip'><b>Dica para o Exame:</b> SageMaker pode consumir dados direto do S3 em formatos como CSV, JSON, Parquet.</div>"
+  },
+  {
+    "category": "Integrações",
+    "question": "Como o S3 se integra com serviços de notificação?",
+    "answer": "<h3>Notificações com SNS e SQS</h3><p>Ao ocorrer um evento, o S3 pode publicar mensagens em tópicos SNS ou filas SQS.</p><ul><li>Permite integração com sistemas externos</li><li>Requer permissões no bucket e destino</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com Lambda para criar pipelines automáticos e desacoplados.</div><div class='exam-tip'><b>Dica para o Exame:</b> O evento precisa estar configurado explicitamente no bucket.</div>"
+  },
+  {
+    "category": "Desempenho",
+    "question": "O que é o S3 Requester Pays?",
+    "answer": "<h3>Repasse de custo ao solicitante</h3><p>Recurso que faz com que quem acessa (requisição) pague pelo uso, em vez do proprietário do bucket.</p><ul><li>Útil em datasets públicos</li><li>Evita custo inesperado para quem publica</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para bibliotecas de dados open-source, como datasets científicos.</div><div class='exam-tip'><b>Dica para o Exame:</b> O solicitante precisa habilitar a flag <code>requester</code> na chamada de API.</div>"
+  },
+  {
+    "category": "Exportação",
+    "question": "É possível exportar logs do S3 Storage Lens?",
+    "answer": "<h3>Exportação para análise externa</h3><p>Sim! Você pode exportar os relatórios do Storage Lens para um bucket S3.</p><ul><li>Diários ou semanais</li><li>Formato: CSV por prefixo ou bucket</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Permite análises avançadas via Athena ou QuickSight.</div><div class='exam-tip'><b>Dica para o Exame:</b> O bucket de destino deve ter permissões específicas para a exportação automática.</div>"
+  }
+]
