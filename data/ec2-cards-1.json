@@ -1,0 +1,13 @@
+[
+  {
+    "category": "Amazon EC2",
+    "question": "O que é o Amazon EC2?",
+    "answer": "<h3>Serviço de máquinas virtuais escaláveis</h3><p>Permite executar VMs na nuvem sob demanda com controle total sobre o sistema operacional.</p><ul><li>Suporte a diferentes tipos de instância</li><li>Escalabilidade horizontal e vertical</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para aplicações legadas, ambientes de teste ou cargas variáveis.</div><div class='exam-tip'><b>Dica para o Exame:</b> EC2 é IaaS puro — diferente de ECS ou Lambda.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "Qual a diferença entre EC2 Spot, On-Demand e Reserved?",
+    "answer": "<h3>Modelos de compra</h3><p><b>On-Demand:</b> Flexível, sem compromisso<br><b>Reserved:</b> Desconto com compromisso<br><b>Spot:</b> Econômico, mas pode ser interrompido</p><ul><li>Reserved: até 72% de desconto</li><li>Spot: ideal para workloads tolerantes a falhas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine tipos para otimizar performance e custo.</div><div class='exam-tip'><b>Dica para o Exame:</b> Spot pode ser interrompido com 2 minutos de antecedência.</div>"
+  }
+  // + 8 flashcards no mesmo padrão…
+]
