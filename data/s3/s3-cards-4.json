@@ -1,4 +1,4 @@
-  ,
+  [
   {
     "category": "Controle de Acesso",
     "question": "Como restringir o acesso a um bucket S3 por endereço IP?",
