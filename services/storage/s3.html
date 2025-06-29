@@ -3,64 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon S3 - Guia de Estudo AWS</title>
-
+    <title>AWS Amazon S3 - Guia de Estudo SAA-C03</title>
+    
     <!-- Link CORRETO para o CSS -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     
     <!-- Metadados para o JavaScript -->
-    <meta name="aws-service-name" content="S3">
+    <meta name="aws-service-name" content="s3">
     <meta name="aws-service-category" content="Storage">
-    <meta name="aws-service-category-link" content="categories/storage.html"> 
+    <meta name="aws-service-category-link" content="categories/storage.html">
 
 </head>
 <body>
     <div id="menu-placeholder"></div>
-    
+
     <div class="container">
-        <!-- Header dinâmico será gerado pelo JavaScript -->
         <header id="page-header"></header>
-        
-        <main>
-            <!-- Container do flashcard -->
-            <div id="flashcard-container">
-                <div id="flashcard" class="flashcard">
-                    <div class="flashcard-inner">
-                        <!-- Frente do card -->
-                        <div class="flashcard-front">
-                            <div class="card-category" id="card-category-front"></div>
-                            <div class="card-content">
-                                <h3 id="card-question">Carregando pergunta...</h3>
-                            </div>
-                        </div>
-                        <!-- Verso do card -->
-                        <div class="flashcard-back">
-                            <div class="card-category" id="card-category-back"></div>
-                            <div class="card-content">
-                                <div id="card-answer">Carregando resposta...</div>
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="flashcard-container" id="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard__face flashcard__face--front">
+                    <span class="card-category" id="card-category-front"></span>
+                    <h2 class="card-question" id="card-question">Carregando...</h2>
                 </div>
-                
-                <!-- Controles de navegação -->
-                <div class="flashcard-controls">
-                    <button id="prev-btn">← Anterior</button>
-                    <span id="card-counter">0 / 0</span>
-                    <button id="next-btn">Próximo →</button>
+                <div class="flashcard__face flashcard__face--back">
+                    <span class="card-category" id="card-category-back"></span>
+                    <div class="card-answer" id="card-answer"></div>
                 </div>
-                
-                <!-- Jump para card específico -->
-                <div id="jump-container" class="jump-container">
-                    <input type="number" id="jump-input" placeholder="Ir para card..." min="1">
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">Anterior</button>
+            <div class="nav-center">
+                <span id="card-counter"></span>
+                <div class="jump-to-card" id="jump-container">
+                    <input type="number" id="jump-input" min="1">
                     <button id="jump-btn">Ir</button>
                 </div>
             </div>
-        </main>
+            <button class="nav-btn" id="next-btn">Próximo</button>
+        </div>
     </div>
-    
-    <div id="footer-placeholder"></div>
-    <!-- CAMINHO CORRIGIDO -->
+
+    <!-- Link CORRETO para o JavaScript -->
     <script src="../../assets/js/script.js"></script>
+        <!-- ... (resto do conteúdo e o <script>) ... -->
+    <div id="footer-placeholder"></div>
 </body>
 </html>
