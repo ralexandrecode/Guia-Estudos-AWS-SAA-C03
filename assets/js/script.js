@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`${componentName} HTML not found`);
 
             let componentHTML = await response.text();
-
             const repoName = (pathSegments.length > 0 && !pathSegments[0].endsWith('.html')) ? pathSegments[0] : '';
             const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
             componentHTML = componentHTML.replace(/\{\{baseURL\}\}/g, baseURL);
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryLink = document.querySelector('meta[name="aws-service-category-link"]').content;
 
         const serviceSlug = window.location.pathname.split('/').pop().replace('.html', '');
-        const dataFiles = [`${serviceSlug}/${serviceSlug}-cards-1.json`]; // pronto para expandir!
+        const dataFiles = [`${serviceSlug}/${serviceSlug}-cards-1.json`];
 
         generateHeader(serviceName, categoryName, categoryLink);
         const flashcardData = await loadFlashcardData(dataFiles);
@@ -95,7 +94,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // (Função initializeFlashcards permanece igual ao seu original)
+    function initializeFlashcards(flashcardsData) {
+        const flashcard = document.getElementById('flashcard');
+        const cardQuestion = document.getElementById('card-question');
+        const cardAnswer = document.getElementById('card-answer');
+        const cardCategoryFront = document.getElementById('card-category-front');
+        const cardCategoryBack = document.getElementById('card-category-back');
+        const cardCounter = document.getElementById('card-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const jumpInput = document.getElementById('jump-input');
+        const jumpBtn = document.getElementById('jump-btn');
+
+        let allCards = [...flashcardsData];
+        let currentIndex = 0;
+
+        function renderCard() {
+            if (flashcard.classList.contains('is-flipped')) {
+                flashcard.classList.remove('is-flipped');
+            }
+            setTimeout(() => {
+                const cardData = allCards[currentIndex];
+                cardQuestion.textContent = cardData.question;
+                cardAnswer.innerHTML = cardData.answer;
+                cardCategoryFront.textContent = cardData.category;
+                cardCategoryBack.textContent = cardData.category;
+                updateCounter();
+            }, 200);
+        }
+
+        function updateCounter() {
+            jumpInput.max = allCards.length;
+            cardCounter.textContent = allCards.length > 0 ? `${currentIndex + 1} / ${allCards.length}` : '0 / 0';
+        }
+
+        function showNextCard() {
+            if (allCards.length === 0) return;
+            currentIndex = (currentIndex + 1) % allCards.length;
+            renderCard();
+        }
+
+        function showPrevCard() {
+            if (allCards.length === 0) return;
+            currentIndex = (currentIndex - 1 + allCards.length) % allCards.length;
+            renderCard();
+        }
+
+        function jumpToCard() {
+            const pageNum = parseInt(jumpInput.value, 10);
+            if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= allCards.length) {
+                currentIndex = pageNum - 1;
+                renderCard();
+                jumpInput.value = '';
+            } else {
+                alert(`Por favor, insira um número entre 1 e ${allCards.length}.`);
+                jumpInput.value = '';
+            }
+        }
+
+        renderCard();
+        flashcard.addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
+        prevBtn.addEventListener('click', showPrevCard);
+        nextBtn.addEventListener('click', showNextCard);
+        jumpBtn.addEventListener('click', jumpToCard);
+        jumpInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') jumpToCard();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement === jumpInput) return;
+            if (e.key === 'ArrowRight') showNextCard();
+            if (e.key === 'ArrowLeft') showPrevCard();
+            if (e.key === ' ') {
+                e.preventDefault();
+                flashcard.classList.toggle('is-flipped');
+            }
+        });
+    }
 
     loadComponent('menu', 'menu-placeholder');
     loadComponent('footer', 'footer-placeholder');
