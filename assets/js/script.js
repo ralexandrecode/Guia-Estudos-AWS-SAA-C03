@@ -1,12 +1,28 @@
-// --- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---
-console.log("--- GUIA DE ESTUDO AWS v2.4 (com menu e rodapé dinâmicos) ---");
+// --- GUIA DE ESTUDO AWS v2.5 (com estrutura de diretórios) ---
+console.log("--- GUIA DE ESTUDO AWS v2.5 (com estrutura de diretórios) ---");
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Detecta se estamos em uma página de serviço (profundidade 1) ou na raiz (profundidade 0)
-    const isServicePage = window.location.pathname.includes('/services/');
-    const pathPrefix = isServicePage ? '../' : '';
+    // Detecta o nível de profundidade da página atual
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const currentPage = pathSegments[pathSegments.length - 1];
+    
+    let pathPrefix = '';
+    let isServicePage = false;
+    
+    // Determina o prefixo baseado na estrutura de diretórios
+    if (pathSegments.includes('services')) {
+        // Estamos em services/categoria/servico.html (2 níveis acima)
+        pathPrefix = '../../';
+        isServicePage = true;
+    } else if (pathSegments.includes('categories')) {
+        // Estamos em categories/categoria.html (1 nível acima)
+        pathPrefix = '../';
+    } else {
+        // Estamos na raiz (index.html)
+        pathPrefix = '';
+    }
 
-    // Função para carregar e injetar o menu
+    // Função para carregar componentes (menu e footer)
     async function loadComponent(componentName, placeholderId) {
         const placeholder = document.getElementById(placeholderId);
         if (!placeholder) return;
@@ -17,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let componentHTML = await response.text();
             
-            // Corrige a baseURL dos links
+            // Corrige a baseURL dos links nos componentes
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const repoName = (pathSegments.length > 0 && !pathSegments[0].endsWith('.html')) ? pathSegments[0] : '';
             const baseURL = window.location.origin + (repoName ? `/${repoName}/` : '/');
@@ -31,10 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // Função principal da aplicação
+    // Função principal para páginas de serviços
     async function main() {
+        if (!isServicePage) return; // Só executa em páginas de serviços
+        
         const flashcardContainer = document.getElementById('flashcard-container');
-        if (!flashcardContainer) return; // Só executa se estiver em página de serviço
+        if (!flashcardContainer) return;
 
         const serviceName = document.querySelector('meta[name="aws-service-name"]').content;
         const categoryName = document.querySelector('meta[name="aws-service-category"]').content;
