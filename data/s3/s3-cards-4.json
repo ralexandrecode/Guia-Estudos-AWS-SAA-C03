@@ -1,0 +1,52 @@
+  ,
+  {
+    "category": "Controle de Acesso",
+    "question": "Como restringir o acesso a um bucket S3 por endereço IP?",
+    "answer": "<h3>Políticas condicionais</h3><p>Use a condição <code>aws:SourceIp</code> em policies para permitir ou negar acesso com base no IP.</p><ul><li>Controla acesso externo</li><li>Aplica-se a usuários ou buckets</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Excelente para restringir acesso a apps internos ou VPCs específicas.</div><div class='exam-tip'><b>Dica para o Exame:</b> O endereço IP deve estar no formato CIDR (ex: 203.0.113.0/24).</div>"
+  },
+  {
+    "category": "URL de Acesso",
+    "question": "O que é uma URL pré-assinada no Amazon S3?",
+    "answer": "<h3>Links temporários com credenciais embutidas</h3><p>Permite acesso autorizado a objetos privados por tempo limitado.</p><ul><li>Gerada via SDK ou CLI</li><li>Útil para distribuição controlada</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para apps que compartilham arquivos com usuários sem autenticação plena.</div><div class='exam-tip'><b>Dica para o Exame:</b> Tempo padrão varia; URLs podem expirar em minutos ou horas.</div>"
+  },
+  {
+    "category": "Resiliência",
+    "question": "Como o S3 mantém a durabilidade dos dados?",
+    "answer": "<h3>Replicação automática entre AZs</h3><p>Armazena cópias redundantes de cada objeto em múltiplas zonas de disponibilidade.</p><ul><li>Protege contra falhas locais</li><li>Durabilidade: 11 noves (99.999999999%)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Não é backup — mas garante persistência mesmo com falhas simultâneas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Essa durabilidade se aplica apenas ao S3 Standard e IA, não ao One Zone-IA.</div>"
+  },
+  {
+    "category": "Storage Class",
+    "question": "O que é a classe de armazenamento S3 One Zone-IA?",
+    "answer": "<h3>Armazenamento de custo reduzido</h3><p>Sem replicação entre zonas — armazena dados em uma única AZ.</p><ul><li>Menor durabilidade (comparado ao Standard)</li><li>Mais barato para dados recriáveis</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Evite usar em dados críticos — escolha para cópias secundárias ou cachês.</div><div class='exam-tip'><b>Dica para o Exame:</b> Durabilidade: 99.999999999%, mas sem alta disponibilidade entre AZs.</div>"
+  },
+  {
+    "category": "Monitoramento",
+    "question": "Como visualizar métricas detalhadas de acesso no S3?",
+    "answer": "<h3>Amazon CloudWatch e S3 Storage Lens</h3><p>Métricas como bytes transferidos, requisições por operação e erros podem ser visualizadas.</p><ul><li>CloudWatch: métricas em tempo real</li><li>Storage Lens: tendências e recomendações</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Configure alarmes para requisições incomuns ou acesso negado.</div><div class='exam-tip'><b>Dica para o Exame:</b> CloudWatch oferece resolução de 1 minuto em métricas detalhadas.</div>"
+  },
+  {
+    "category": "Cold Storage",
+    "question": "Quando usar o S3 Glacier em vez do Glacier Deep Archive?",
+    "answer": "<h3>Comparação entre classes frias</h3><p><b>Glacier:</b> recuperação em minutos ou horas<br><b>Deep Archive:</b> recuperação em até 12 horas</p><ul><li>Glacier: ideal para backups recentes</li><li>Deep Archive: retenção de longo prazo</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Glacier para arquivos acessados algumas vezes por trimestre.</div><div class='exam-tip'><b>Dica para o Exame:</b> Deep Archive é mais barato, mas tem maior latência de recuperação.</div>"
+  },
+  {
+    "category": "Compressão",
+    "question": "O Amazon S3 oferece compressão automática?",
+    "answer": "<h3>Compressão não nativa</h3><p>O S3 não comprime objetos automaticamente — você deve fazer isso antes do upload.</p><ul><li>Use formatos como GZIP, ZIP</li><li>Controle via headers de metadata</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com CloudFront para compactação automática via <code>Content-Encoding</code>.</div><div class='exam-tip'><b>Dica para o Exame:</b> Compressão economiza storage e melhora performance de entrega.</div>"
+  },
+  {
+    "category": "Contas",
+    "question": "Como compartilhar um bucket entre contas AWS?",
+    "answer": "<h3>Acesso entre contas</h3><p>Use políticas de bucket e permissões cross-account.</p><ul><li>Inclua <code>Principal</code> da conta externa</li><li>Pode usar IAM Roles com confiança entre contas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crie uma função assumível com <code>sts:AssumeRole</code> para segurança refinada.</div><div class='exam-tip'><b>Dica para o Exame:</b> ACLs e policies podem coexistir — mas prefira políticas pela clareza.</div>"
+  },
+  {
+    "category": "Retenção Legal",
+    "question": "Como garantir que um objeto não seja excluído por um período específico?",
+    "answer": "<h3>Object Lock - Modo Compliance</h3><p>Impede alterações ou deleção até a data de retenção expirar.</p><ul><li>Compatível com auditorias legais</li><li>Modo Governado ou Compliance</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Usado em setores como finanças, jurídico e saúde.</div><div class='exam-tip'><b>Dica para o Exame:</b> Só pode ser habilitado na criação do bucket — atenção à configuração inicial!</div>"
+  },
+  {
+    "category": "API REST",
+    "question": "Como realizar operações no S3 via API REST?",
+    "answer": "<h3>Ações HTTP padrão</h3><p>O S3 expõe uma API RESTful para operações como GET, PUT, DELETE, HEAD, LIST.</p><ul><li>Autenticação via assinatura HMAC</li><li>Headers específicos: x-amz-*</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Útil para integrações diretas com linguagens e ferramentas sem SDK.</div><div class='exam-tip'><b>Dica para o Exame:</b> A operação LIST pode ser paginada com token de continuação.</div>"
+  }
+]
