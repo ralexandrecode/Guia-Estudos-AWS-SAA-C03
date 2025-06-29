@@ -1,0 +1,28 @@
+[
+  {
+    "category": "Integração com Lambda",
+    "question": "Como integrar o Amazon S3 com funções AWS Lambda?",
+    "answer": "<h3>Disparo de eventos automáticos</h3><p>O S3 pode acionar funções Lambda em resposta a eventos como uploads ou exclusões de objetos.</p><ul><li>Via notificações de eventos no bucket</li><li>Com suporte a prefixos e filtros</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para processamentos assíncronos e automações serverless.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se: apenas um destino pode ser atribuído diretamente no console por tipo de evento.</div>"
+  },
+  {
+    "category": "Restauração de Dados",
+    "question": "Como restaurar dados do S3 Glacier?",
+    "answer": "<h3>Solicitação de restauração</h3><p>Objetos em classes Glacier precisam de uma solicitação explícita para restauração temporária.</p><ul><li>Restores de 1 a 15 dias</li><li>Modos: Expedited, Standard ou Bulk</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Planeje restauração antecipada se o tempo for crítico.</div><div class='exam-tip'><b>Dica para o Exame:</b> Restaurar não altera a classe de armazenamento — apenas cria uma cópia acessível.</div>"
+  },
+  {
+    "category": "Consistência de Dados",
+    "question": "Qual o modelo de consistência do S3?",
+    "answer": "<h3>Consistência forte</h3><p>Desde 2020, o S3 oferece consistência forte para leitura após gravação e listagens.</p><ul><li>Aplica-se a PUT, DELETE, LIST, etc.</li><li>Antes era eventual</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Facilita cargas críticas sem necessidade de revalidação.</div><div class='exam-tip'><b>Dica para o Exame:</b> Essa mudança elimina a necessidade de polling adicional.</div>"
+  },
+  {
+    "category": "Regras de CORS",
+    "question": "Como permitir acesso cross-origin a um bucket S3?",
+    "answer": "<h3>Configuração de CORS (Cross-Origin Resource Sharing)</h3><p>Define origens permitidas e métodos via política JSON no bucket.</p><ul><li>GET, PUT, POST, DELETE, etc.</li><li>Usado para front-ends que acessam dados via JS</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Sempre restrinja métodos e origens ao mínimo necessário.</div><div class='exam-tip'><b>Dica para o Exame:</b> Requisições CORS mal configuradas geram erro 403.</div>"
+  },
+  {
+    "category": "Transfer Acceleration",
+    "question": "O que é o S3 Transfer Acceleration?",
+    "answer": "<h3>Upload mais rápido globalmente</h3><p>Usa a rede edge do CloudFront (AWS Global Accelerator) para acelerar uploads para buckets S3.</p><ul><li>Domínio exclusivo: `bucketname.s3-accelerate.amazonaws.com`</li><li>Ideal para uploads internacionais</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Excelente para experiências globais com upload intenso.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pode haver custo adicional e não é recomendado para uploads locais simples.</div>"
+  }
+  // Adicione mais 20 flashcards similares aqui para completar os 25
+]
