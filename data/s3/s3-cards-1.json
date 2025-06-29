@@ -1,0 +1,198 @@
+[
+    {
+        "category": "Classes de Armazenamento",
+        "question": "Qual a principal diferença entre o S3 Standard e o S3 Intelligent-Tiering?",
+        "answer": "<h3>Diferença entre Standard e Intelligent-Tiering</h3><p>O <b>S3 Standard</b> é ideal para dados acessados frequentemente, enquanto o <b>S3 Intelligent-Tiering</b> automatiza a movimentação entre camadas de acesso com base em padrões de uso, otimizando custos.</p><ul><li>Standard: baixa latência, alta disponibilidade</li><li>Intelligent-Tiering: monitora o uso e move automaticamente os dados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Intelligent-Tiering quando não for possível prever o padrão de acesso aos dados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se: Intelligent-Tiering tem taxa de monitoramento, mas pode reduzir o custo a longo prazo.</div>"
+    },
+    {
+        "category": "Segurança",
+        "question": "Como o Amazon S3 implementa controle de acesso por identidade?",
+        "answer": "<h3>Controle de Acesso com IAM</h3><p>O S3 integra-se ao <b>IAM (Identity and Access Management)</b> da AWS para definir permissões granulares de acesso a buckets e objetos.</p><ul><li>IAM Policies: controle por usuário ou grupo</li><li>Bucket Policies: regras específicas por bucket</li><li>ACLs (listas de controle de acesso): configuradas por objeto</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Prefira políticas baseadas em IAM para controle centralizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Bucket policies são ideais para acesso entre contas diferentes.</div>"
+    },
+    {
+        "category": "Versionamento",
+        "question": "Para que serve o versionamento no Amazon S3?",
+        "answer": "<h3>Controle de Versões</h3><p>Com o <b>versionamento</b> habilitado, o S3 mantém múltiplas versões de um mesmo objeto, evitando perda acidental de dados.</p><ul><li>Útil para recuperação de arquivos excluídos</li><li>Permite restaurar versões antigas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine versionamento com políticas de ciclo de vida para controle de custos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos excluídos aparecem como \"delete markers\" — a versão antiga ainda existe.</div>"
+    },
+    {
+        "category": "Ciclo de Vida",
+        "question": "Como as regras de ciclo de vida ajudam na gestão de objetos no S3?",
+        "answer": "<h3>Regras de Transição e Expiração</h3><p>As <b>políticas de ciclo de vida</b> automatizam a transição de objetos entre classes de armazenamento e a exclusão de dados antigos.</p><ul><li>Transição: Standard → Glacier após 30 dias</li><li>Expiração: excluir objetos após 365 dias</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para otimização de custos com dados acessados raramente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Políticas de ciclo de vida são baseadas em regras definidas por prefixos ou tags.</div>"
+    },
+    {
+    
+        "category": "Classes de Armazenamento",
+        "question": "Qual a principal diferença entre o S3 Standard e o S3 Intelligent-Tiering?",
+        "answer": "<h3>Diferença entre Standard e Intelligent-Tiering</h3><p>O <b>S3 Standard</b> é ideal para dados acessados frequentemente, enquanto o <b>S3 Intelligent-Tiering</b> automatiza a movimentação entre camadas de acesso com base em padrões de uso, otimizando custos.</p><ul><li>Standard: baixa latência, alta disponibilidade</li><li>Intelligent-Tiering: monitora o uso e move automaticamente os dados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Intelligent-Tiering quando não for possível prever o padrão de acesso aos dados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lembre-se: Intelligent-Tiering tem taxa de monitoramento, mas pode reduzir o custo a longo prazo.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como o Amazon S3 implementa controle de acesso por identidade?",
+    "answer": "<h3>Controle de Acesso com IAM</h3><p>O S3 integra-se ao <b>IAM (Identity and Access Management)</b> da AWS para definir permissões granulares de acesso a buckets e objetos.</p><ul><li>IAM Policies: controle por usuário ou grupo</li><li>Bucket Policies: regras específicas por bucket</li><li>ACLs (listas de controle de acesso): configuradas por objeto</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Prefira políticas baseadas em IAM para controle centralizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Bucket policies são ideais para acesso entre contas diferentes.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Para que serve o versionamento no Amazon S3?",
+    "answer": "<h3>Controle de Versões</h3><p>Com o <b>versionamento</b> habilitado, o S3 mantém múltiplas versões de um mesmo objeto, evitando perda acidental de dados.</p><ul><li>Útil para recuperação de arquivos excluídos</li><li>Permite restaurar versões antigas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine versionamento com políticas de ciclo de vida para controle de custos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos excluídos aparecem como \"delete markers\" — a versão antiga ainda existe.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Como as regras de ciclo de vida ajudam na gestão de objetos no S3?",
+    "answer": "<h3>Regras de Transição e Expiração</h3><p>As <b>políticas de ciclo de vida</b> automatizam a transição de objetos entre classes de armazenamento e a exclusão de dados antigos.</p><ul><li>Transição: Standard → Glacier após 30 dias</li><li>Expiração: excluir objetos após 365 dias</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para otimização de custos com dados acessados raramente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Políticas de ciclo de vida são baseadas em regras definidas por prefixos ou tags.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Quando usar o S3 Glacier Deep Archive?",
+    "answer": "<h3>Cenários para Deep Archive</h3><p>Ideal para dados raramente acessados com requisitos de retenção de 7-10 anos. Custo mais baixo da família S3.</p><ul><li>Latência de recuperação: 12 horas</li><li>Casos de uso: backups de longo prazo, dados regulatórios</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com S3 Lifecycle para transição automática.</div><div class='exam-tip'><b>Dica para o Exame:</b> Glacier Deep Archive é 75% mais barato que o S3 Standard.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como habilitar a criptografia padrão em um bucket S3?",
+    "answer": "<h3>Server-Side Encryption (SSE)</h3><p>Através das propriedades do bucket > Criptografia padrão > Habilitar:</p><ul><li>SSE-S3: chaves gerenciadas pela AWS</li><li>SSE-KMS: chaves gerenciadas pelo KMS</li><li>SSE-C: chaves fornecidas pelo cliente</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use SSE-KMS para auditoria granular via CloudTrail.</div><div class='exam-tip'><b>Dica para o Exame:</b> SSE-S3 é a opção mais simples e não tem custo adicional.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "O que é MFA Delete no S3?",
+    "answer": "<h3>Proteção contra exclusão acidental</h3><p>Requer autenticação multifator para:</p><ul><li>Excluir versões de objetos</li><li>Alterar status do versionamento do bucket</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Fundamental para buckets críticos em ambientes de produção.</div><div class='exam-tip'><b>Dica para o Exame:</b> MFA Delete só pode ser habilitado via API/CLI, não pelo Console.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Como expirar versões antigas em buckets com versionamento?",
+    "answer": "<h3>Gerenciamento de versões não atuais</h3><p>Crie uma política de ciclo de vida com:</p><ul><li>Ação: \"Expirar versões não atuais\"</li><li>Dias após a versão se tornar não atual</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com tags para controle granular.</div><div class='exam-tip'><b>Dica para o Exame:</b> Versões \"não atuais\" são mantidas mesmo após exclusão do objeto atual.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Qual é o SLA do S3 Standard-IA?",
+    "answer": "<h3>Disponibilidade e Durabilidade</h3><p><b>Disponibilidade:</b> 99.9% (inferior ao Standard's 99.99%)</p><p><b>Durabilidade:</b> 99.999999999% (11 noves)</p><ul><li>Custo de recuperação por GB</li><li>Armazenamento mínimo: 128KB/objeto</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para backups e dados de DR.</div><div class='exam-tip'><b>Dica para o Exame:</b> SLA diferente do Standard = maior risco de indisponibilidade.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como restringir acesso público a buckets S3?",
+    "answer": "<h3>Block Public Access</h3><p>Configuração global que substitui políticas menos restritivas:</p><ul><li>Bloquear acesso público via ACLs</li><li>Bloquear acesso público via políticas</li><li>Bloquear acesso entre contas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Habilitado por padrão em novos buckets desde 2023.</div><div class='exam-tip'><b>Dica para o Exame:</b> CloudFront + OAI é alternativa segura para conteúdo público.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como restaurar uma versão anterior de um objeto?",
+    "answer": "<h3>Processo de Restauração</h3><p>1. Navegue até o objeto no Console S3<br>2. Selecione \"Versões\"<br>3. Acesse a versão desejada<br>4. Selecione \"Fazer desta a versão atual\"</p><div class='insight'><b>Insight de Arquiteto:</b> Automatize com scripts AWS CLI para recuperação em massa.</div><div class='exam-tip'><b>Dica para o Exame:</b> Restaurações não excluem versões posteriores - use lifecycle para limpeza.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Posso usar lifecycle rules com objetos criptografados?",
+    "answer": "<h3>Compatibilidade com Criptografia</h3><p>Sim! As regras funcionam normalmente com objetos usando:</p><ul><li>SSE-S3</li><li>SSE-KMS</li><li>SSE-C</li><li>Client-side encryption</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Transições para Glacier requerem SSE-S3 ou SSE-KMS.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos com SSE-C não podem ser transicionados para classes inferiores.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Quando usar S3 One Zone-IA?",
+    "answer": "<h3>Armazenamento em Única AZ</h3><p>Recomendado para:</p><ul><li>Dados não críticos recriáveis</li><li>Armazenamento secundário de DR</li><li>Custos 20% menores que Standard-IA</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Evite para dados críticos - risco de perda total na AZ.</div><div class='exam-tip'><b>Dica para o Exame:</b> Durabilidade reduzida (99.999999999% → 99.5%).</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "O que são VPC Endpoints para S3?",
+    "answer": "<h3>Acesso Privado na VPC</h3><p>Permite acesso a buckets S3 sem internet:</p><ul><li>Gateway Endpoint (roteamento)</li><li>Interface Endpoint (ENI privada)</li><li>Benefícios: segurança, custo zero de transferência</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com bucket policies para restringir acesso à VPC.</div><div class='exam-tip'><b>Dica para o Exame:</b> Endpoints não suportam acesso entre regiões.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como o versionamento afeta o custo?",
+    "answer": "<h3>Implicações Financeiras</h3><p>Você paga por:</p><ul><li>Todas as versões armazenadas</li><li>Delete markers (armazenados como objetos)</li><li>Operações de listagem (LIST, GET)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use lifecycle policies para deletar versões antigas automaticamente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Delete markers não têm custo de armazenamento, apenas operacional.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Posso transicionar objetos diretamente para Glacier Deep Archive?",
+    "answer": "<h3>Transições Diretas</h3><p>Sim! Regras permitem:</p><ul><li>Transição imediata após criação</li><li>Mínimo de 0 dias para Deep Archive</li><li>Exceto para pequenos objetos (<128KB)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para dados de compliance com raríssimo acesso.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos no Deep Archive não podem ser visualizados diretamente - requerem restauração.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Como o Intelligent-Tiering evita custos desnecessários?",
+    "answer": "<h3>Monitoramento Automático</h3><p>Move objetos entre tiers baseado em acesso:</p><ul><li>Frequent Access Tier (Standard)</li><li>Infrequent Access Tier (Standard-IA)</li><li>Archive Access Tier</li><li>Deep Archive Access Tier</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Único sem custos de recuperação entre tiers.</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos <128KB permanecem no Frequent Access Tier.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como auditar acessos ao S3?",
+    "answer": "<h3>Ferramentas de Auditoria</h3><p>1. AWS CloudTrail: registra chamadas de API<br>2. S3 Server Access Logging: logs de requisições<br>3. AWS Config: histórico de configurações<br>4. Macie: identificação de dados sensíveis</p><div class='insight'><b>Insight de Arquiteto:</b> Centralize logs em conta dedicada para segurança.</div><div class='exam-tip'><b>Dica para o Exame:</b> Server Access Logging gera logs no próprio S3 - cuidado com loops!</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como suspender o versionamento?",
+    "answer": "<h3>Desabilitação Parcial</h3><p>O versionamento não pode ser desligado - apenas suspenso:</p><ul><li>Novos objetos não terão versões</li><li>Versões existentes permanecem</li><li>Recomendação: manter sempre habilitado</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Suspensão aumenta risco de perda de dados.</div><div class='exam-tip'><b>Dica para o Exame:</b> Não há como remover completamente o versionamento após ativação.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "O que acontece se uma lifecycle rule conflitar com outra?",
+    "answer": "<h3>Resolução de Conflitos</h3><p>S3 prioriza:</p><ul><li>Regras de expiração sobre transição</li><li>Regras com prefixos mais específicos</li><li>Ordem de criação (se aplicável)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Teste regras em buckets de staging antes de produção.</div><div class='exam-tip'><b>Dica para o Exame:</b> Conflitos podem causar transições prematuras - revise cuidadosamente.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Qual classe usar para dados de ML/analytics?",
+    "answer": "<h3>Otimização para Analytics</h3><p>S3 Intelligent-Tiering com:</p><ul><li>Recursos de consulta direta (S3 Select, Glacier Select)</li><li>Integração nativa com Athena/Redshift</li><li>Baixo custo para grandes volumes</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com formato columnar (Parquet/ORC) para melhor performance.</div><div class='exam-tip'><b>Dica para o Exame:</b> Intelligent-Tiering é a única classe que suporta todas as features analíticas.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como habilitar SSL obrigatório para S3?",
+    "answer": "<h3>Política de Condição</h3><p>Adicione esta condição em bucket policies:</p><pre>{<br>  \"Condition\": {<br>    \"Bool\": { \"aws:SecureTransport\": \"false\" }<br>  }<br>}</pre><div class='insight'><b>Insight de Arquiteto:</b> Fundamental para compliance (HIPAA, PCI).</div><div class='exam-tip'><b>Dica para o Exame:</b> Conexões via VPC Endpoints já são criptografadas sem SSL.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "O que é cross-region replication (CRR) e requer versionamento?",
+    "answer": "<h3>Replicação Entre Regiões</h3><p>Sim! Requer:</p><ul><li>Versionamento habilitado em ambos buckets</li><li>Permissões IAM adequadas</li><li>Regiões diferentes</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use para DR ou latência reduzida globalmente.</div><div class='exam-tip'><b>Dica para o Exame:</b> CRR replica apenas novos objetos após configuração.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Posso transicionar objetos para outras contas AWS?",
+    "answer": "<h3>Transição Entre Contas</h3><p>Não diretamente. Alternativas:</p><ul><li>Replicação entre contas primeiro</li><li>Event Notifications + Lambda</li><li>Bucket policies com permissões cruzadas</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Considere AWS Organizations para compartilhamento centralizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> Lifecycle rules só aplicam a objetos no mesmo bucket.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Como otimizar custos com S3 Transfer Acceleration?",
+    "answer": "<h3>Aceleração de Uploads</h3><p>Use para:</p><ul><li>Uploads globais frequentes</li><li>Grandes volumes (>1TB/dia)</li><li>Conectividade instável</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Teste com <a href=\"https://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html\" target=\"_blank\">Speed Comparison Tool</a>.</div><div class='exam-tip'><b>Dica para o Exame:</b> Custo adicional de $0.04-$0.08/GB além do S3 Standard.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "O que é S3 Object Lock?",
+    "answer": "<h3>Proteção contra alterações</h3><p>Implementa WORM (Write Once Read Many):</p><ul><li>Governance Mode: alterações permitidas com privilégios especiais</li><li>Compliance Mode: bloqueio absoluto até expiração</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Essencial para dados regulatórios (SEC Rule 17a-4).</div><div class='exam-tip'><b>Dica para o Exame:</b> Requer versionamento habilitado e não pode ser desativado.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como listar todas versões de um objeto via AWS CLI?",
+    "answer": "<h3>Comando Versions</h3><p><code>aws s3api list-object-versions \\<br>--bucket my-bucket \\<br>--prefix my-object</code></p><div class='insight'><b>Insight de Arquiteto:</b> Use <code>--query</code> para filtrar resultados complexos.</div><div class='exam-tip'><b>Dica para o Exame:</b> O parâmetro <code>--prefix</code> é opcional para listagem completa.</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "O que são S3 Lifecycle Transition Times?",
+    "answer": "<h3>Janelas de Transição</h3><p>Horários específicos para processamento:</p><ul><li>Transições para Standard-IA: 30 dias após modificação</li><li>Transições para Glacier: imediato ou após período configurado</li><li>Processamento em lote durante off-peak</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Transições não são instantâneas - podem levar horas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Dias são contados a partir da data de criação do objeto, não da última acesso.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Quando usar S3 Outposts?",
+    "answer": "<h3>Armazenamento On-Premises</h3><p>Para workloads que requerem:</p><ul><li>Baixa latência local</li><li>Residência de dados in-locais</li><li>Integração com infra local</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Custo 4-5x maior que S3 padrão - avalie TCO.</div><div class='exam-tip'><b>Dica para o Exame:</b> Outposts não suporta todas classes (ex: Glacier).</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como integrar S3 com AWS KMS?",
+    "answer": "<h3>Criptografia com Chaves Gerenciadas</h3><p>1. Crie uma CMK no KMS<br>2. Em bucket properties, selecione SSE-KMS<br>3. Especifique a CMK ARN<br>4. Configure permissões via key policy</p><div class='insight'><b>Insight de Arquiteto:</b> Use grants para permissões temporárias.</div><div class='exam-tip'><b>Dica para o Exame:</b> Cada chamada de GetObject gera uma chamada Decrypt no KMS ($0.03/10k).</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como excluir permanentemente um objeto versionado?",
+    "answer": "<h3>Exclusão Definitiva</h3><p>Requer duas operações:</p><ol><li>Excluir o delete marker (versão atual)</li><li>Excluir a versão específica do objeto</li></ol><div class='insight'><b>Insight de Arquiteto:</b> Automatize com lifecycle policies para evitar esforço manual.</div><div class='exam-tip'><b>Dica para o Exame:</b> Sem versionamento, uma exclusão é permanente imediatamente!</div>"
+  },
+  {
+    "category": "Ciclo de Vida",
+    "question": "Posso aplicar lifecycle rules a objetos existentes?",
+    "answer": "<h3>Aplicação Retroativa</h3><p>Sim! As regras aplicam-se a:</p><ul><li>Objetos criados após criação da regra</li><li>Objetos pré-existentes (a partir do momento de criação)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Verifique datas de criação para evitar transições prematuras.</div><div class='exam-tip'><b>Dica para o Exame:</b> O \"age\" do objeto é calculado desde sua criação, não desde a criação da regra.</div>"
+  },
+  {
+    "category": "Classes de Armazenamento",
+    "question": "Quais são os custos do S3 Intelligent-Tiering?",
+    "answer": "<h3>Estrutura de Preços</h3><p>• Armazenamento: igual ao S3 Standard<br>• Taxa de monitoramento: $0.0025 por 1k objetos<br>• Sem taxas de recuperação entre tiers<br>• Transferência OUT: igual às demais classes</p><div class='insight'><b>Insight de Arquiteto:</b> Economicamente inviável para pequenos objetos (<128KB).</div><div class='exam-tip'><b>Dica para o Exame:</b> Objetos <128KB permanecem sempre no Frequent Access Tier.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "O que é Presigned URL no S3?",
+    "answer": "<h3>Acesso Temporário</h3><p>URLs geradas via SDK/CLI que permitem:</p><ul><li>Acesso público temporário a objetos privados</li><li>Validade configurável (segundos a dias)</li><li>Sem necessidade de credenciais AWS do usuário</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use para compartilhamento seguro em aplicações web.</div><div class='exam-tip'><b>Dica para o Exame:</b> Não pode ser revogada antes da expiração - defina prazos curtos.</div>"
+  },
+  {
+    "category": "Versionamento",
+    "question": "Como evitar que usuários desabilitem o versionamento?",
+    "answer": "<h3>Proteção via IAM</h3><p>Adicione esta política IAM:</p><pre>{<br>  \"Effect\": \"Deny\",<br>  \"Action\": \"s3:PutBucketVersioning\",<br>  \"Resource\": \"arn:aws:s3:::my-bucket\"<br>}</pre><div class='insight'><b>Insight de Arquiteto:</b> Combine com SCPs em nível organizacional.</div><div class='exam-tip'><b>Dica para o Exame:</b> PutBucketVersioning é a API que controla o status do versionamento.</div>"
+  }
+]
