@@ -1,0 +1,27 @@
+[
+  {
+    "category": "Modos de Uso",
+    "question": "Quais são os dois modos de operação do Amazon Transcribe?",
+    "answer": "<h3>Batch e Streaming</h3><p>O Transcribe opera em dois modos:</p><ul><li><strong>Batch:</strong> Transcrição assíncrona de arquivos armazenados no S3.</li><li><strong>Streaming:</strong> Transcrição em tempo real via WebSocket seguro.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Prefira <code>batch</code> para arquivos longos e análises em lote; use <code>streaming</code> em call centers e interações ao vivo.</div><div class='exam-tip'><b>Dica para o Exame:</b> O streaming possui limite de até 4h contínuas por conexão.</div>"
+  },
+  {
+    "category": "Identificação de Locutores",
+    "question": "Quantos locutores distintos o Amazon Transcribe consegue identificar?",
+    "answer": "<h3>Até 10 locutores</h3><p>Com o recurso <code>ShowSpeakerLabels = true</code>, é possível rotular falas de até 10 locutores distintos por job.</p><div class='insight'><b>Insight de Arquiteto:</b> Fundamental em reuniões, gravações jurídicas ou podcasts com múltiplas pessoas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Transcribe não reconhece quem é quem – apenas separa as vozes por identificador (Speaker 1, Speaker 2...)</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como proteger os dados transcritos em trânsito e em repouso?",
+    "answer": "<h3>Criptografia com AWS KMS</h3><p>Use HTTPS para dados em trânsito e KMS para criptografar os dados em repouso no S3.</p><ul><li>Chaves gerenciadas pela AWS (SSE-S3)</li><li>Chaves gerenciadas pelo cliente (SSE-KMS)</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para dados sensíveis ou LGPD, use KMS com rotação automática e políticas de chave restritivas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Transcribe não armazena dados transcritos – você é responsável pela segurança no S3.</div>"
+  },
+  {
+    "category": "Redação de Dados Sensíveis",
+    "question": "Como o Amazon Transcribe lida com dados pessoais (PII)?",
+    "answer": "<h3>PII Redaction</h3><p>Ative a funcionalidade de <code>Redação de PII</code> para que o Transcribe oculte dados como CPF, cartão de crédito, telefone, etc.</p><div class='insight'><b>Insight de Arquiteto:</b> Essencial em call centers e gravações de atendimento com dados sensíveis.</div><div class='exam-tip'><b>Dica para o Exame:</b> Esse recurso tem custo adicional de $0.0001 por segundo.</div>"
+  },
+  {
+    "category": "Vocabulário Customizado",
+    "question": "Quando usar vocabulário personalizado no Amazon Transcribe?",
+    "answer": "<h3>Custom Vocabulary</h3><p>Use para adicionar palavras específicas de uma área (médica, jurídica, técnica) para melhorar o reconhecimento de termos.</p><ul><li>Melhora a acurácia</li><li>Gratuito e fácil de atualizar</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Útil em contextos com siglas, nomes próprios ou expressões regionais recorrentes.</div><div class='exam-tip'><b>Dica para o Exame:</b> Não tem custo extra, ao contrário dos modelos de linguagem customizados (CLM).</div>"
+  }
+]
