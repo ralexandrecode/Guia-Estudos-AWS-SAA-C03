@@ -1,0 +1,42 @@
+[
+  {
+    "category": "Amazon EC2",
+    "question": "O que são EC2 Launch Templates?",
+    "answer": "<h3>Modelos reutilizáveis para lançamento de instâncias</h3><p>Permite padronizar configurações como AMI, tipo de instância, EBS, key pair, etc.</p><ul><li>Substitui Launch Configurations</li><li>Recomendado com Auto Scaling Groups</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Facilita versionamento e consistência entre ambientes.</div><div class='exam-tip'><b>Dica para o Exame:</b> Launch Templates são obrigatórios com Spot Fleet e ASG com Mixed Instances.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "Como funciona Auto Scaling com EC2?",
+    "answer": "<h3>Escalabilidade automática para EC2</h3><p>Adiciona ou remove instâncias com base em políticas como CPU ou latência.</p><ul><li>Auto Scaling Group (ASG)</li><li>Min, Max, Desired Capacity</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com Application Load Balancer (ALB) para escalar horizontalmente.</div><div class='exam-tip'><b>Dica para o Exame:</b> Launch Templates são preferidos com ASG, especialmente com Mixed Instances.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "Qual a diferença entre Security Group e NACL?",
+    "answer": "<h3>Camadas de segurança em rede</h3><p><b>Security Groups:</b> stateful, aplicados na instância<br><b>NACLs:</b> stateless, aplicados na subnet</p><ul><li>SGs: permitem/negam conexões específicas</li><li>NACLs: controlam tráfego de entrada e saída</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use ambos para proteção em camadas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Security Groups permitem regras com base em IDs de grupo.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "O que é Instance Metadata Service (IMDS)?",
+    "answer": "<h3>Informações internas da instância</h3><p>Permite obter dados como region, role, hostname, etc., via <code>http://169.254.169.254</code></p><ul><li>IMDSv2 é a versão segura com tokens</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Desabilite IMDS se não for necessário por segurança.</div><div class='exam-tip'><b>Dica para o Exame:</b> Políticas de segurança recomendam IMDSv2 como padrão.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "O que são EC2 Instance Types?",
+    "answer": "<h3>Perfis de desempenho de instância</h3><p>Divididos em famílias como <code>t3</code>, <code>m5</code>, <code>c6g</code>, etc., com foco em diferentes workloads.</p><ul><li>General Purpose, Compute Optimized, Memory Optimized</li><li>Suporte a AMD, Intel, Graviton</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Teste instâncias Graviton para economia em workloads Linux.</div><div class='exam-tip'><b>Dica para o Exame:</b> Famílias <code>t</code> usam CPU burst com créditos.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "Como funciona o EC2 Hibernate?",
+    "answer": "<h3>Suspende a instância preservando memória RAM</h3><p>Ideal para recuperação rápida de máquinas com estado mantido.</p><ul><li>Armazena RAM em disco root EBS</li><li>Mais rápido que Stop + Start</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Útil para instâncias com inicialização pesada ou ambientes interativos.</div><div class='exam-tip'><b>Dica para o Exame:</b> Só funciona com AMIs compatíveis e root EBS encriptado.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "O que é EC2 Spot Fleet?",
+    "answer": "<h3>Grupo de instâncias Spot com estratégia de balanceamento</h3><p>Permite execução de workloads com base em múltiplas pools de Spot para otimizar custo e disponibilidade.</p><ul><li>Suporta tipos diversos e zonas diferentes</li><li>Define estratégia de alocação</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use quando performance for flexível e custo for prioridade.</div><div class='exam-tip'><b>Dica para o Exame:</b> Spot Fleet pode substituir instâncias automaticamente se for interrompida.</div>"
+  },
+  {
+    "category": "Amazon EC2",
+    "question": "Como integrar EC2 com CloudWatch?",
+    "answer": "<h3>Monitoramento e alertas</h3><p>CloudWatch coleta métricas como CPU, disco, rede e eventos de ciclo de vida (start/stop).</p><ul><li>Alarms podem acionar ASG, notificações, Lambda</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Instale agente CloudWatch para métricas avançadas como memória.</div><div class='exam-tip'><b>Dica para o Exame:</b> Logs e dashboards ajudam a identificar gargalos de EC2.</div>"
+  }
+]
