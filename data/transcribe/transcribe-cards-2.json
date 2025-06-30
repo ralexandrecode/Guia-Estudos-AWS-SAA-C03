@@ -1,0 +1,27 @@
+[
+  {
+    "category": "Modelo de Linguagem Personalizado",
+    "question": "Qual a diferença entre vocabulário customizado e modelo de linguagem personalizado (CLM)?",
+    "answer": "<h3>CLM = Modelo completo</h3><p>Enquanto o vocabulário adiciona palavras, o CLM ajusta toda a compreensão de linguagem com base em seus dados.</p><div class='insight'><b>Insight de Arquiteto:</b> Use CLM quando houver baixo desempenho mesmo após vocabulário customizado.</div><div class='exam-tip'><b>Dica para o Exame:</b> CLM tem custo maior: $0.00056/segundo.</div>"
+  },
+  {
+    "category": "Limites de Serviço",
+    "question": "Quais os principais limites do Amazon Transcribe?",
+    "answer": "<h3>Limites importantes:</h3><ul><li>Áudio batch: máx. 4h ou 2 GB</li><li>Streaming: máx. 4h contínuas</li><li>Até 10 locutores por job</li><li>50 vocabulários customizados por conta</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Considere dividir arquivos grandes com Lambda + FFmpeg.</div><div class='exam-tip'><b>Dica para o Exame:</b> São cobradas todas as partes do áudio, inclusive silêncios.</div>"
+  },
+  {
+    "category": "Custo e Otimização",
+    "question": "Como reduzir os custos ao usar Amazon Transcribe?",
+    "answer": "<h3>Otimizações inteligentes:</h3><ul><li>Remover silêncios e usar compressão mono 16kHz</li><li>Filtrar arquivos irrelevantes antes da transcrição</li><li>Executar sob demanda com Lambda</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Comprehend para filtrar chamadas antes de transcrever.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pague apenas pelo tempo de áudio efetivamente processado.</div>"
+  },
+  {
+    "category": "Arquitetura Recomendada",
+    "question": "Como integrar o Transcribe com outros serviços AWS em uma arquitetura segura?",
+    "answer": "<h3>Pipeline com Step Functions</h3><ul><li>Entrada via S3</li><li>EventBridge aciona Step Function</li><li>Lambda processa e chama Transcribe</li><li>Saída em S3 + indexação em OpenSearch</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use tags em buckets e logs com CloudWatch para rastreabilidade e auditoria.</div><div class='exam-tip'><b>Dica para o Exame:</b> Prefira soluções serverless, escaláveis e desacopladas.</div>"
+  },
+  {
+    "category": "Conformidade e Regiões",
+    "question": "Como garantir conformidade com LGPD ao usar Transcribe?",
+    "answer": "<h3>Escolha da região correta</h3><p>Armazene e processe os dados sensíveis na região <code>sa-east-1</code> (São Paulo), com criptografia e controle de acesso estrito.</p><div class='insight'><b>Insight de Arquiteto:</b> Combine KMS + restrição por VPC e tags para segurança granular.</div><div class='exam-tip'><b>Dica para o Exame:</b> Para dados sensíveis brasileiros, escolha a região local sempre que possível.</div>"
+  }
+]
