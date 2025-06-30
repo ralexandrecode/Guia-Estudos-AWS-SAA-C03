@@ -6,7 +6,7 @@
 
 Bem-vindo ao Guia de Estudos Interativo para a certificação **AWS Certified Solutions Architect - Associate (SAA-C03)**. Este é um projeto de código aberto criado para ser um manual prático e uma ferramenta de revisão rápida, utilizando flashcards para reforçar os conceitos dos mais de 80 serviços cobrados no exame.
 
-**[Acesse o Guia de Estudos aqui!](https://ralexandrecode.github.io/Guia-Estudos-AWS-SAA-C03/)**
+**[Acesse o Guia de Estudos e Brinque com os flashcards: !](https://ralexandrecode.github.io/Guia-Estudos-AWS-SAA-C03/)**
 
 ---
 
@@ -54,9 +54,7 @@ Contribuições são muito bem-vindas! Se você encontrou um erro, tem uma suges
 
 Juntos, podemos criar a melhor ferramenta de estudo para a comunidade AWS!
 
-## 📜 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+**[Acesse a aplicação e estude por flashcards: !](https://ralexandrecode.github.io/Guia-Estudos-AWS-SAA-C03/)**
 
 ---
 
