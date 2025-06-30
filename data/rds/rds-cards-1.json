@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Amazon RDS",
+    "question": "O que é Amazon Relational Database Service (RDS)?",
+    "answer": "<h3>Serviço de Banco de Dados Relacional Gerenciado</h3><p>Facilita a configuração, operação e escalabilidade de bancos de dados relacionais na nuvem.</p><ul><li>Gerencia tarefas administrativas: provisionamento de hardware, aplicação de patches, backups e replicação.</li><li>Suporta vários motores de banco de dados.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Permite que as equipes foquem no desenvolvimento de aplicações, não na gestão de DBs.</div><div class='exam-tip'><b>Dica para o Exame:</b> RDS é uma solução PaaS (Platform as a Service).</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Quais são os principais motores de banco de dados suportados pelo Amazon RDS?",
+    "answer": "<h3>Diversidade de Motores de Banco de Dados</h3><p>RDS oferece suporte a 6 motores populares, otimizados para diferentes casos de uso.</p><ul><li><b>Amazon Aurora:</b> MySQL e PostgreSQL compatível, performance superior.</li><li><b>PostgreSQL:</b> Banco de dados relacional de código aberto.</li><li><b>MySQL:</b> Banco de dados relacional popular de código aberto.</li><li><b>MariaDB:</b> Fork compatível com MySQL.</li><li><b>Oracle:</b> Banco de dados comercial.</li><li><b>Microsoft SQL Server:</b> Banco de dados comercial.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> A escolha do motor depende dos requisitos de licenciamento, performance e compatibilidade da aplicação.</div><div class='exam-tip'><b>Dica para o Exame:</b> Aurora é a opção de performance gerenciada pela AWS; as outras são bases de dados 'tradicionais'.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Como o Multi-AZ aumenta a disponibilidade no Amazon RDS?",
+    "answer": "<h3>Alta Disponibilidade e Recuperação de Desastres</h3><p>Cria uma réplica síncrona da instância de banco de dados em uma Zona de Disponibilidade (AZ) diferente.</p><ul><li><b>Replicação Síncrona:</b> Dados são escritos simultaneamente na instância primária e na réplica.</li><li><b>Failover Automático:</b> Em caso de falha da AZ primária, o RDS automaticamente faz o failover para a réplica em segundos, sem intervenção manual.</li><li><b>Não é para Escala de Leitura:</b> A réplica Multi-AZ não serve tráfego de leitura.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Essencial para cargas de trabalho de produção que exigem alta disponibilidade e resiliência.</div><div class='exam-tip'><b>Dica para o Exame:</b> O endpoint da aplicação permanece o mesmo após o failover, transparente para o cliente.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Qual a finalidade principal das Read Replicas no Amazon RDS e como elas funcionam?",
+    "answer": "<h3>Escalabilidade de Leitura para Bancos de Dados</h3><p>Permitem que você descarregue o tráfego de leitura da instância de banco de dados primária, melhorando o desempenho para aplicações com uso intensivo de leitura.</p><ul><li><b>Replicação Assíncrona:</b> (Exceto Aurora, que é síncrona/quase síncrona) os dados são replicados da primária para as réplicas.</li><li><b>Separar Workloads:</b> Aplicativos podem direcionar suas operações de leitura para as Read Replicas.</li><li><b>Escala Horizontal:</b> Pode-se criar até 15 Read Replicas por instância primária.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use para escalar horizontalmente workloads de leitura. Não fornecem alta disponibilidade em caso de falha da instância primária.</div><div class='exam-tip'><b>Dica para o Exame:</b> Read Replicas podem ser promovidas a instâncias primárias independentes em casos de desastre (point-in-time recovery).</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Qual a diferença entre Automated Backups e DB Snapshots manuais no Amazon RDS?",
+    "answer": "<h3>Estratégias de Backup e Recuperação</h3><p>Ambos são backups, mas diferem em controle, retenção e uso.</p><ul><li><b>Automated Backups:</b> Habilitados por padrão, criam backups diários completos e logs de transações contínuos. Permitem Point-in-Time Recovery (PITR) dentro de um período de retenção (até 35 dias). Automático e incremental.</li><li><b>DB Snapshots (Manuais):</b> Criados manualmente ou via agendamento customizado. São armazenados no S3, persistem até que você os exclua, independentemente da instância de origem. Úteis para arquivamento de longo prazo ou migração.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use Automated Backups para PITR e conformidade de retenção, e DB Snapshots para baselines, recuperação de desastres de longo prazo ou movimentação de DBs.</div><div class='exam-tip'><b>Dica para o Exame:</b> PITR só é possível com Automated Backups ativados. Snapshot pode ser copiado para outra região/conta.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Como a criptografia é implementada no Amazon RDS e qual seu impacto?",
+    "answer": "<h3>Proteção de Dados em Repouso e em Trânsito</h3><p>RDS oferece criptografia para proteger dados em seus bancos de dados e backups.</p><ul><li><b>Em Repouso (At Rest):</b> Usa AWS Key Management Service (KMS) para criptografar os dados no volume EBS, backups automatizados, snapshots e réplicas de leitura. A criptografia é configurada ao criar a instância e não pode ser desabilitada depois.</li><li><b>Em Trânsito (In Transit):</b> Suportado via SSL/TLS para conexões entre o aplicativo e o banco de dados.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para criptografar um DB existente não criptografado, é necessário criar um snapshot, copiá-lo criptografado e restaurar uma nova instância a partir desse snapshot.</div><div class='exam-tip'><b>Dica para o Exame:</b> A criptografia de um volume RDS também criptografa todos os backups e réplicas gerados a partir dele.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "O que é Autenticação de Banco de Dados IAM para RDS e suas vantagens?",
+    "answer": "<h3>Autenticação Centralizada e Segura</h3><p>Permite usar suas credenciais de usuário e roles do AWS IAM para autenticar em instâncias de banco de dados RDS (MySQL e PostgreSQL).</p><ul><li><b>Credenciais de Curto Prazo:</b> Não exige senhas de longo prazo; o aplicativo solicita um token temporário ao IAM para autenticação.</li><li><b>Gerenciamento Centralizado:</b> Gerencia acesso de banco de dados através de políticas IAM.</li><li><b>Segurança Aprimorada:</b> Sem credenciais embutidas em código, rotação automática de credenciais, auditoria via CloudTrail.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Essencial para aprimorar a postura de segurança e conformidade, especialmente em ambientes automatizados ou com microsserviços.</div><div class='exam-tip'><b>Dica para o Exame:</b> Exige que o DB esteja em uma VPC e que o cliente tenha conectividade e permissão IAM.</div>"
+  },
+  {
+    "category": "Amazon Aurora",
+    "question": "Quais são as principais vantagens do Amazon Aurora em comparação com outros motores RDS?",
+    "answer": "<h3>Performance, Escalabilidade e Resiliência Otimizadas</h3><p>Um banco de dados relacional otimizado para a nuvem da AWS, compatível com MySQL e PostgreSQL.</p><ul><li><b>Alta Performance:</b> Até 5x mais rápido que MySQL e 3x mais rápido que PostgreSQL padrão.</li><li><b>Escalabilidade:</b> Armazenamento auto-escalável (até 128TB), até 15 Read Replicas de baixa latência.</li><li><b>Alta Disponibilidade:</b> Seis cópias dos dados replicadas em 3 AZs com recuperação automática de falhas de até 3 AZs sem perda de dados.</li><li><b>Custo-Benefício:</b> Paga apenas pelo que usa, sem provisionamento excessivo.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Considere Aurora para cargas de trabalho de missão crítica que exigem alta performance e disponibilidade.</div><div class='exam-tip'><b>Dica para o Exame:</b> Aurora Serverless v2 escala instantaneamente a capacidade e paga por segundo de uso.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Para que serve o Amazon RDS Proxy e quais seus benefícios?",
+    "answer": "<h3>Gerenciamento de Conexões com o Banco de Dados</h3><p>Um pool de conexão de banco de dados altamente disponível e totalmente gerenciado que roteia tráfego de aplicações para o RDS.</p><ul><li><b>Escalabilidade de Conexões:</b> Ajuda aplicações a escalar mais facilmente, agrupando e reutilizando conexões com o DB.</li><li><b>Resiliência:</b> Melhora a tolerância a falhas, mantendo as conexões vivas durante failovers de Multi-AZ.</li><li><b>Segurança:</b> Permite autenticação com credenciais IAM, sem a necessidade de gerenciar segredos de banco de dados no código.</li><li><b>Serverless Friendly:</b> Ideal para funções Lambda que abrem e fecham conexões rapidamente.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Reduz a carga do DB com muitas conexões simultâneas e facilita a migração sem alterações de código após um failover.</div><div class='exam-tip'><b>Dica para o Exame:</b> Essencial para arquiteturas serverless com alto volume de invocações.</div>"
+  },
+  {
+    "category": "Amazon RDS",
+    "question": "Qual a diferença entre DB Parameter Groups e Option Groups no Amazon RDS?",
+    "answer": "<h3>Controle de Configuração e Funcionalidades</h3><p>Ambos são usados para configurar e estender as capacidades de uma instância RDS.</p><ul><li><b>DB Parameter Groups:</b> Coleções de parâmetros do motor de banco de dados. Permitem ajustar configurações de performance, logs, timeouts, etc. (ex: <code>max_connections</code> para MySQL). As alterações podem exigir reinicialização do DB para ter efeito.</li><li><b>Option Groups:</b> Coleções de recursos e funcionalidades adicionais para o seu DB, como suporte a Oracle ASO, SQL Server Transparent Data Encryption (TDE), ou integração com S3. As opções adicionam funcionalidade, não apenas ajustam parâmetros.</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crie grupos customizados para aplicar configurações específicas e garantir consistência entre instâncias.</div><div class='exam-tip'><b>Dica para o Exame:</b> Um Option Group pode ser associado a múltiplos DBs; um Parameter Group padrão é associado por tipo de motor e versão.</div>"
+  }
+]
