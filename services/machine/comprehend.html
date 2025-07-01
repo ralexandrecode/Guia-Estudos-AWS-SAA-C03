@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Comprehend - Guia de Estudo SAA-C03</title>
+    
+    <!-- Link CORRETO para o CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    
+    <!-- Metadados para o JavaScript -->
+    <meta name="aws-service-name" content="Comprehend">
+    <meta name="aws-service-category" content="Machine Learning">
+    <meta name="aws-service-category-link" content="categories/machine.html">
+    
+</head>
+<body>
+    <div id="menu-placeholder"></div>
+
+    <div class="container">
+        <header id="page-header"></header>
+
+        <div class="flashcard-container" id="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard__face flashcard__face--front">
+                    <span class="card-category" id="card-category-front"></span>
+                    <h2 class="card-question" id="card-question">Carregando...</h2>
+                </div>
+                <div class="flashcard__face flashcard__face--back">
+                    <span class="card-category" id="card-category-back"></span>
+                    <div class="card-answer" id="card-answer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn">Anterior</button>
+            <div class="nav-center">
+                <span id="card-counter"></span>
+                <div class="jump-to-card" id="jump-container">
+                    <input type="number" id="jump-input" min="1">
+                    <button id="jump-btn">Ir</button>
+                </div>
+            </div>
+            <button class="nav-btn" id="next-btn">Próximo</button>
+        </div>
+      <section class="container" style="margin-top: 40px; margin-bottom: 60px;">
+  <h2 style="color: var(--primary-color); font-size: 2rem; margin-bottom: 20px;">Resumo Arquitetural – Amazon Comprehend</h2>
+  
+  <article>
+    <p><strong>Amazon Comprehend</strong> é um serviço de Processamento de Linguagem Natural (NLP) totalmente gerenciado que permite extrair significado de textos não estruturados usando aprendizado de máquina, sem necessidade de treinamento prévio.</p>
+
+    <h3>Principais Funcionalidades</h3>
+    <ul>
+      <li>Detecção de idioma</li>
+      <li>Análise de sentimento (positivo, negativo, neutro, misto)</li>
+      <li>Reconhecimento de entidades (nomes, datas, lugares)</li>
+      <li>Extração de frases-chave</li>
+      <li>Análise de tópicos</li>
+    </ul>
+
+    <h3>Segurança</h3>
+    <ul>
+      <li>Acesso controlado por <strong>IAM roles e policies</strong></li>
+      <li>Dados em trânsito: <code>TLS 1.2</code></li>
+      <li>Dados em repouso: criptografia com <strong>KMS</strong> (inclusive BYOK)</li>
+      <li>Suporte a <strong>VPC Endpoints (PrivateLink)</strong></li>
+    </ul>
+
+    <h3>Integrações Comuns</h3>
+    <ul>
+      <li><strong>S3</strong>: Entrada e saída de arquivos (batch)</li>
+      <li><strong>Lambda / Step Functions</strong>: Processamento automatizado e orquestração</li>
+      <li><strong>EventBridge</strong>: Acionadores por evento</li>
+      <li><strong>SageMaker</strong>: Análise e pós-processamento</li>
+      <li><strong>Kendra</strong>: Enriquecimento de buscas</li>
+    </ul>
+
+    <h3>Custos</h3>
+    <ul>
+      <li>Real-time (síncrono): ~<code>$0.0001</code> por unidade (100 caracteres)</li>
+      <li>Batch: <code>$1/job</code> + <code>$1/100K caracteres</code></li>
+    </ul>
+
+    <h3>Escalabilidade</h3>
+    <p>Totalmente serverless, com escalabilidade horizontal automática.</p>
+
+    <h3>Mini-cenário de integração</h3>
+    <p>Chatbot jurídico detecta sentimentos e entidades antes de passar conversa ao atendente humano:</p>
+    <p><code>Lex → Lambda → Comprehend → EventBridge → SNS/Slack</code></p>
+
+    <h3>Dicas de Arquiteto Sênior</h3>
+    <ul>
+      <li>Use <strong>VPC Endpoint + KMS</strong> sempre que houver dados sensíveis</li>
+      <li>Para interações curtas, use <strong>modo síncrono</strong>; para grandes volumes, use <strong>batch</strong></li>
+      <li>Prefira <strong>Step Functions</strong> para pipelines mais robustas com fallback</li>
+      <li><strong>Agrupe textos pequenos</strong> para otimizar chamadas e reduzir custos</li>
+    </ul>
+  </article>
+</section>
+
+    </div>
+
+    <!-- Link CORRETO para o JavaScript -->
+    <script src="../../assets/js/script.js"></script>
+        <!-- ... (resto do conteúdo e o <script>) ... -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>
+</body>
+</html>
