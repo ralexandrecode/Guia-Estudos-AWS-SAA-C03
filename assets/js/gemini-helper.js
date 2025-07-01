@@ -9,7 +9,7 @@ async function perguntarIA() {
 
   respostaDiv.innerHTML = "💬 Processando...";
 
-  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=SUA_API_KEY_AQUI";
+  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDiLG7YdfeRv5HdMwz0tITRcXJsMFcdtoc";
 
   const payload = {
     contents: [
