@@ -48,5 +48,56 @@
     "category": "Casos de Uso",
     "question": "Quais são os principais casos de uso do Amazon Comprehend?",
     "answer": "<h3>Casos de uso típicos</h3><ul><li>Análise de sentimento em reviews</li><li>Classificação de e-mails ou tickets</li><li>Extração de PII em documentos legais</li><li>Identificação de tópicos em publicações</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Comprehend é excelente em contextos de automação de CX (experiência do cliente) e compliance.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pense em contextos com texto não estruturado em larga escala e NLP.</div>"
+  },
+  
+  {
+    "category": "Essencial",
+    "question": "O que é o Amazon Comprehend e para que serve?",
+    "answer": "<h3>NLP gerenciado na AWS</h3><p>Serviço de <strong>Processamento de Linguagem Natural (NLP)</strong> totalmente gerenciado para:</p><ul><li>Detectar sentimento</li><li>Extrair entidades (nomes, locais, etc.)</li><li>Identificar idioma</li><li>Detectar frases-chave e tópicos</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para enriquecer dados textuais sem criar ou treinar modelos de IA do zero.</div><div class='exam-tip'><b>Dica para o Exame:</b> O Comprehend não precisa de ML prévio – basta chamar as APIs com texto ou usar jobs batch com S3.</div>"
+  },
+  {
+    "category": "Segurança",
+    "question": "Como garantir segurança e confidencialidade dos dados processados no Comprehend?",
+    "answer": "<h3>Criptografia e VPC</h3><p>Use criptografia com KMS para dados em repouso e <strong>VPC Endpoints (PrivateLink)</strong> para isolar o tráfego.</p><ul><li>Trânsito: TLS 1.2</li><li>Logs: CloudTrail + CloudWatch</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com S3 versionado e IAM restritivo para trilha completa de auditoria.</div><div class='exam-tip'><b>Dica para o Exame:</b> Sempre associe Comprehend a uma role IAM ao criar batch jobs.</div>"
+  },
+  {
+    "category": "Limites",
+    "question": "Quais são os limites de uso do Amazon Comprehend?",
+    "answer": "<h3>Limitações de entrada</h3><ul><li>Síncrono: até 5.000 bytes por chamada</li><li>Batch: 5 documentos por segundo (limite padrão)</li><li>Jobs ativos por região: 20</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Divida documentos longos com Lambda e use Step Functions para controle de fluxo.</div><div class='exam-tip'><b>Dica para o Exame:</b> Jobs em batch são processados via arquivos em S3 e precisam de role IAM.</div>"
+  },
+  {
+    "category": "Custo",
+    "question": "Como funciona a cobrança no Amazon Comprehend?",
+    "answer": "<h3>Por caractere processado</h3><ul><li><strong>Real-time:</strong> ~$0.0001 por 100 caracteres</li><li><strong>Batch:</strong> ~$1 por 100k caracteres</li><li><strong>Custom:</strong> Custa para treinar e manter endpoint ativo</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Agrupe textos pequenos para economizar chamadas síncronas.</div><div class='exam-tip'><b>Dica para o Exame:</b> O custo fixo do Comprehend Custom pode ser alto – use apenas se necessário.</div>"
+  },
+  {
+    "category": "Boas Práticas",
+    "question": "Quais são boas práticas ao usar o Amazon Comprehend?",
+    "answer": "<h3>Observabilidade e segurança</h3><ul><li>Use CloudTrail e CloudWatch para rastreio</li><li>Habilite versionamento no S3</li><li>Orquestre falhas com Step Functions</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para dados sensíveis, evite expor os resultados diretamente ao front-end.</div><div class='exam-tip'><b>Dica para o Exame:</b> Use Lambda para validar entrada textual antes de invocar o Comprehend.</div>"
+  },
+  {
+    "category": "Modos de uso",
+    "question": "Quais são os dois modos principais de uso do Comprehend?",
+    "answer": "<h3>Síncrono vs. Batch</h3><ul><li><strong>Síncrono:</strong> detectSentiment, detectEntities, etc.</li><li><strong>Batch:</strong> startSentimentDetectionJob, via arquivos em S3</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Síncrono para APIs rápidas, batch para grandes volumes com latência tolerável.</div><div class='exam-tip'><b>Dica para o Exame:</b> Batch exige S3 + role IAM; APIs síncronas usam texto inline.</div>"
+  },
+  {
+    "category": "Customização",
+    "question": "O que é o Comprehend Custom e quando usar?",
+    "answer": "<h3>Modelos personalizados</h3><p>Permite treinar modelos próprios de:</p><ul><li>Classificação de texto</li><li>Reconhecimento de entidades</li></ul><p>Necessita de arquivos rotulados para treinamento.</p><div class='insight'><b>Insight de Arquiteto:</b> Use quando as entidades ou classes do modelo padrão não atenderem ao negócio.</div><div class='exam-tip'><b>Dica para o Exame:</b> Avalie o custo fixo de endpoint ativo no Comprehend Custom.</div>"
+  },
+  {
+    "category": "Observabilidade",
+    "question": "Como monitorar falhas e sucesso em jobs do Comprehend?",
+    "answer": "<h3>Com CloudWatch</h3><ul><li>Configure <strong>logs detalhados</strong></li><li>Crie <strong>alarmes</strong> por falha ou timeout</li><li>Use <strong>EventBridge</strong> para eventos e notificações</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Registre em DynamoDB os metadados de cada job para rastreabilidade total.</div><div class='exam-tip'><b>Dica para o Exame:</b> Jobs finalizados podem disparar eventos via EventBridge.</div>"
+  },
+  {
+    "category": "Integração",
+    "question": "Como integrar Comprehend com Lambda, S3 e SNS para automação?",
+    "answer": "<h3>Pipeline Serverless</h3><ul><li>Texto chega via API Gateway</li><li>Lambda chama Comprehend (síncrono)</li><li>Resultado vai para S3 e SNS envia alerta</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Desacople os passos com EventBridge para facilitar testes e rastreio.</div><div class='exam-tip'><b>Dica para o Exame:</b> Esse padrão é comum em fluxos de NLP real-time.</div>"
+  },
+  {
+    "category": "Restrições",
+    "question": "O que acontece se enviar um texto muito grande ao Comprehend?",
+    "answer": "<h3>Erro de tamanho</h3><p>O serviço rejeita chamadas síncronas com mais de 5.000 bytes.</p><p>Solução:</p><ul><li>Dividir o texto com Lambda</li><li>Processar por partes com controle de estado</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine com Step Functions se precisar manter contexto ou agregação posterior.</div><div class='exam-tip'><b>Dica para o Exame:</b> Verifique sempre o tamanho da entrada em chamadas síncronas.</div>"
   }
 ]
