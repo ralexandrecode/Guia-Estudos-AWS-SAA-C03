@@ -3,23 +3,19 @@ async function perguntarIA() {
   const respostaDiv = document.getElementById("ia-response");
 
   if (!pergunta) {
-    respostaDiv.innerHTML = "❗Por favor, digite uma pergunta válida.";
+    respostaDiv.innerHTML = "❗Digite uma pergunta antes de enviar.";
     return;
   }
 
   respostaDiv.innerHTML = "💬 Processando...";
 
-  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBjtcbs3mQS7g21ofeTaILxes9RtgnLgAk";
+  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=SUA_API_KEY_AQUI";
 
   const payload = {
     contents: [
       {
         role: "user",
-        parts: [
-          {
-            text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"`
-          }
-        ]
+        parts: [{ text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"` }]
       }
     ]
   };
@@ -32,13 +28,10 @@ async function perguntarIA() {
     });
 
     const data = await resposta.json();
-
-    const texto =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "❌ Não foi possível gerar uma resposta.";
-
+    const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder.";
     respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
-  } catch (erro) {
-    respostaDiv.innerHTML = `❌ Erro ao conectar com a IA: ${erro.message}`;
+  } catch (error) {
+    respostaDiv.innerHTML = "❌ Erro ao conectar com a API.";
+    console.error(error);
   }
 }
