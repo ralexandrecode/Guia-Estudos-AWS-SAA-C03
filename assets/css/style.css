@@ -441,3 +441,39 @@ strong, b {
 .imagem-centralizada:hover {
     transform: scale(1.05); /* leve aumento ao passar o mouse */
 }
+
+/* --- Estilos para IA RESPONDER --- */
+
+#ai-helper textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+#ai-helper button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#ai-helper button:hover {
+  background-color: #e68a00;
+}
+
+#ia-response {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  margin-top: 15px;
+}
