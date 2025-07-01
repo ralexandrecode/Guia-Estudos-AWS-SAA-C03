@@ -99,73 +99,27 @@
       </article>
     </section>
 
-    <!-- ✅ BLOCO INTERATIVO DE PERGUNTAS -->
-    <section id="ai-helper" style="margin-top: 40px;">
-      <h2>Dúvidas sobre o Comprehend?</h2>
-      <p>Digite sua pergunta abaixo. Uma IA treinada responderá com base no conteúdo desta página:</p>
-      <textarea id="user-question" rows="4" placeholder="Ex: Qual a diferença entre análise de sentimento e entidades?" style="width:100%; padding:10px; font-size:1rem;"></textarea>
-      <button onclick="perguntarIA()" style="background-color: orange; color: white; border: none; padding: 10px 20px; margin-top: 10px; font-weight: bold; border-radius: 6px; cursor: pointer;">Perguntar à IA</button>
-      <div id="ia-response" style="margin-top: 20px; padding: 15px; border-left: 4px solid #0078d4; background: #f9f9f9; border-radius: 6px;"></div>
-    </section>
-  </div>
-
-  <!-- ✅ SCRIPT DE INTEGRAÇÃO COM GEMINI -->
-  <script>
-    async function perguntarIA() {
-      const pergunta = document.getElementById("user-question").value.trim();
-      const respostaDiv = document.getElementById("ia-response");
-
-      if (!pergunta) {
-        respostaDiv.innerHTML = "❗ Digite uma pergunta válida.";
-        return;
-      }
-
-      respostaDiv.innerHTML = "💬 Processando...";
-
-      const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBjtcbs3mQS7g21ofeTaILxes9RtgnLgAk";
-
-      const payload = {
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"`
-              }
-            ]
-          }
-        ]
-      };
-
-      try {
-        const resposta = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await resposta.json();
-        const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder.";
-        respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
-      } catch (e) {
-        respostaDiv.innerHTML = "❌ Erro ao conectar com a IA. Verifique a API KEY ou conexão.";
-      }
-    }
-  </script>
+    
+    <!--- INICIOS CÓDIGO IA -->
 
 <section id="ai-helper" style="margin-top: 40px;">
   <h2>Dúvidas sobre o Comprehend?</h2>
   <p>Digite sua pergunta abaixo. Uma IA treinada responderá com base no conteúdo desta página:</p>
-  <textarea id="user-question" rows="4" placeholder="Ex: Qual a diferença entre análise de sentimento e entidades?"></textarea>
-  <br>
-  <button id="perguntar-btn">Perguntar à IA</button>
+  <textarea id="user-question" rows="4" placeholder="Ex: Qual a diferença entre análise de sentimento e entidades?" style="width: 100%; padding: 10px; font-size: 1rem;"></textarea>
+  <button onclick="perguntarIA()" style="margin-top: 10px; padding: 10px 20px; background-color: orange; color: white; border: none; border-radius: 5px;">Perguntar à IA</button>
   <div id="ia-response" style="margin-top: 20px;"></div>
 </section>
+
+<!-- Carrega o script da IA -->
+<script src="../../assets/js/gemini-helper.js"></script>
+    
+
+<!-- FIM DO CÓDIGO IA -->
+    
 
   
   <!-- Scripts adicionais -->
   <script src="../../assets/js/script.js"></script>
-  <script src="../../assets/js/gemini-helper.js"></script>
   <div id="footer-placeholder"></div>
 </body>
 </html>
