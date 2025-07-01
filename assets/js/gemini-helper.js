@@ -1,51 +1,44 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const perguntaInput = document.getElementById("user-question");
-  const perguntaBtn = document.getElementById("perguntar-btn");
+async function perguntarIA() {
+  const pergunta = document.getElementById("user-question").value.trim();
   const respostaDiv = document.getElementById("ia-response");
 
-  perguntaInput.addEventListener("keydown", (e) => {
-    // Garante que espaços sejam permitidos
-    if (e.key === " " || e.key === "Spacebar") {
-      e.stopPropagation();
-    }
-  });
+  if (!pergunta) {
+    respostaDiv.innerHTML = "❗Por favor, digite uma pergunta válida.";
+    return;
+  }
 
-  perguntaBtn.addEventListener("click", async () => {
-    const pergunta = perguntaInput.value.trim();
-    if (!pergunta) {
-      respostaDiv.innerHTML = "⚠️ Digite sua dúvida.";
-      return;
-    }
+  respostaDiv.innerHTML = "💬 Processando...";
 
-    respostaDiv.innerHTML = "💬 Processando...";
+  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBjtcbs3mQS7g21ofeTaILxes9RtgnLgAk";
 
-    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBjtcbs3mQS7g21ofeTaILxes9RtgnLgAk";
+  const payload = {
+    contents: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"`
+          }
+        ]
+      }
+    ]
+  };
 
-    const payload = {
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"`
-            }
-          ]
-        }
-      ]
-    };
+  try {
+    const resposta = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-    try {
-      const resposta = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+    const data = await resposta.json();
 
-      const data = await resposta.json();
-      const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder, insira perguntas somente no contexto de serviços Amazon AWS por gentileza.";
-      respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
-    } catch (e) {
-      respostaDiv.innerHTML = "❌ Erro ao processar sua pergunta.";
-    }
-  });
-});
+    const texto =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "❌ Não foi possível gerar uma resposta.";
+
+    respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
+  } catch (erro) {
+    respostaDiv.innerHTML = `❌ Erro ao conectar com a IA: ${erro.message}`;
+  }
+}
