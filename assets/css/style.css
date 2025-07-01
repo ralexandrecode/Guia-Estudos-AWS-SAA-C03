@@ -429,3 +429,15 @@ strong, b {
 .error-container .cta-button:hover {
     transform: scale(1.05);
 }
+
+.imagem-centralizada {
+    display: block;
+    margin: 10px auto 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* sombra suave */
+    border-radius: 8px; /* cantos levemente arredondados */
+    transition: transform 0.3s ease; /* efeito suave ao passar o mouse */
+}
+
+.imagem-centralizada:hover {
+    transform: scale(1.05); /* leve aumento ao passar o mouse */
+}
