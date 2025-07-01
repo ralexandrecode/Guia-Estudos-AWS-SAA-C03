@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Visão Geral do Serviço",
+    "question": "O que é o Amazon Comprehend e para que ele é usado?",
+    "answer": "<h3>Análise de linguagem natural (NLP)</h3><p>O Amazon Comprehend é um serviço totalmente gerenciado que detecta <strong>entidades, sentimento, idioma, palavras-chave e tópicos</strong> em textos não estruturados.</p><ul><li>Não requer modelos treinados manualmente</li><li>API simples para entrada de texto bruto</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Ideal para enriquecer dados textuais antes de análises ou classificações com IA.</div><div class='exam-tip'><b>Dica para o Exame:</b> Comprehend funciona com texto bruto em inglês, português e outros idiomas importantes.</div>"
+  },
+  {
+    "category": "Funcionalidades Básicas",
+    "question": "Quais análises padrão estão disponíveis no Amazon Comprehend?",
+    "answer": "<h3>5 análises principais</h3><ul><li>Detecção de idioma</li><li>Extração de entidades</li><li>Análise de sentimento</li><li>Análise sintática</li><li>Detecção de frases-chave</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Combine Comprehend com S3 + Athena para análises ricas de grandes volumes de texto.</div><div class='exam-tip'><b>Dica para o Exame:</b> Análise de sentimentos detecta: Positive, Negative, Neutral e Mixed.</div>"
+  },
+  {
+    "category": "Custom Classification",
+    "question": "O que é a Classificação Personalizada no Amazon Comprehend?",
+    "answer": "<h3>Custom Classification</h3><p>Permite treinar um modelo supervisionado para categorizar textos em classes definidas pelo usuário.</p><ul><li>Requer dataset com texto e rótulos</li><li>Treinamento gerenciado com suporte a reprocessamento</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Excelente para rotular e-mails, tickets de suporte ou documentos jurídicos por tipo.</div><div class='exam-tip'><b>Dica para o Exame:</b> O modelo personalizado precisa de um mínimo de exemplos por classe.</div>"
+  },
+  {
+    "category": "Segmentação de Tópicos",
+    "question": "Como funciona a detecção de tópicos no Comprehend?",
+    "answer": "<h3>Topic Modeling com LDA</h3><p>Comprehend usa <code>Latent Dirichlet Allocation (LDA)</code> para agrupar textos por assuntos comuns automaticamente.</p><ul><li>Não supervisionado</li><li>Ideal para grandes volumes de texto sem rótulos</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use em análise exploratória de bases de conhecimento ou redes sociais.</div><div class='exam-tip'><b>Dica para o Exame:</b> É um processo batch assíncrono, não em tempo real.</div>"
+  },
+  {
+    "category": "Entidades Pessoais e PII",
+    "question": "Como o Comprehend lida com informações pessoais identificáveis (PII)?",
+    "answer": "<h3>PII Detection</h3><p>Detecta automaticamente dados como nomes, emails, endereços, cartões, CPFs e telefones.</p><div class='insight'><b>Insight de Arquiteto:</b> Útil para mascaramento e conformidade com LGPD em textos livres.</div><div class='exam-tip'><b>Dica para o Exame:</b> PII detection é diferente da extração comum de entidades – é mais especializada.</div>"
+  },
+  {
+    "category": "Integração com S3",
+    "question": "Como o Amazon Comprehend lida com grandes volumes de dados?",
+    "answer": "<h3>Jobs assíncronos com S3</h3><p>Você pode enviar grandes volumes de texto como arquivos em S3 e executar jobs batch para análise em massa.</p><ul><li>Job type: entity-recognition, sentiment, classification, etc.</li><li>Resultado é gravado de volta em S3</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Use com Step Functions para orquestrar pipelines de análise e transformação textual.</div><div class='exam-tip'><b>Dica para o Exame:</b> Essa abordagem é ideal para pipelines com dados acumulados ao longo do tempo.</div>"
+  },
+  {
+    "category": "Limites do Serviço",
+    "question": "Quais são os principais limites do Amazon Comprehend?",
+    "answer": "<h3>Limites padrão:</h3><ul><li>5000 bytes por chamada síncrona</li><li>10 tópicos em modelagem de tópicos</li><li>20 classificações por documento</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Divida textos grandes em blocos menores antes de enviar para a API síncrona.</div><div class='exam-tip'><b>Dica para o Exame:</b> O tamanho do texto é medido em bytes, não em caracteres.</div>"
+  },
+  {
+    "category": "Custom Entity Recognition",
+    "question": "O que é o reconhecimento de entidades personalizado no Comprehend?",
+    "answer": "<h3>Custom Entity Recognition</h3><p>Permite treinar modelos para detectar entidades específicas do seu negócio (ex: códigos de processo, produtos).</p><ul><li>Requer anotação de dados de treinamento</li><li>Suporte a várias entidades</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Crucial para empresas com vocabulário único ou estruturas específicas.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pode ser treinado via console ou API, com arquivos CSV e anotação específica.</div>"
+  },
+  {
+    "category": "Segurança e Conformidade",
+    "question": "Quais são os principais recursos de segurança no Amazon Comprehend?",
+    "answer": "<h3>Segurança com IAM, KMS e VPC</h3><p>Comprehend suporta:</p><ul><li>IAM para controle de acesso granular</li><li>Criptografia com AWS KMS</li><li>Execução em VPC endpoints privados</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Para cargas sensíveis, combine com CloudTrail + restrições por tag e região.</div><div class='exam-tip'><b>Dica para o Exame:</b> Comprehend pode ser integrado com VPC endpoints para evitar tráfego externo.</div>"
+  },
+  {
+    "category": "Casos de Uso",
+    "question": "Quais são os principais casos de uso do Amazon Comprehend?",
+    "answer": "<h3>Casos de uso típicos</h3><ul><li>Análise de sentimento em reviews</li><li>Classificação de e-mails ou tickets</li><li>Extração de PII em documentos legais</li><li>Identificação de tópicos em publicações</li></ul><div class='insight'><b>Insight de Arquiteto:</b> Comprehend é excelente em contextos de automação de CX (experiência do cliente) e compliance.</div><div class='exam-tip'><b>Dica para o Exame:</b> Pense em contextos com texto não estruturado em larga escala e NLP.</div>"
+  }
+]
