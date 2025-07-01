@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     respostaDiv.innerHTML = "💬 Processando...";
 
-    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=SUA_CHAVE_AQUI";
+    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyBjtcbs3mQS7g21ofeTaILxes9RtgnLgAk";
 
     const payload = {
       contents: [
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await resposta.json();
-      const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder.";
+      const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder, insira perguntas somente no contexto de serviços Amazon AWS por gentileza.";
       respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
     } catch (e) {
       respostaDiv.innerHTML = "❌ Erro ao processar sua pergunta.";
