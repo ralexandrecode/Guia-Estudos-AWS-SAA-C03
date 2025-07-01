@@ -100,7 +100,47 @@
 </section>
 
     </div>
+    
+    <!-- novo trecho -->
+    
+<section id="ai-helper" style="margin-top: 40px;">
+  <h2>Dúvidas sobre o Comprehend?</h2>
+  <p>Digite sua pergunta abaixo. Uma IA treinada responderá com base no conteúdo desta página:</p>
+  <textarea id="user-question" rows="4" placeholder="Ex: Qual a diferença entre análise de sentimento e entidades?"></textarea>
+  <button onclick="perguntarIA()">Perguntar à IA</button>
+  <div id="ia-response" style="margin-top: 20px;"></div>
+</section>
 
+<script>
+async function perguntarIA() {
+  const pergunta = document.getElementById("user-question").value;
+  const respostaDiv = document.getElementById("ia-response");
+  respostaDiv.innerHTML = "💬 Processando...";
+
+  const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=SUA_API_KEY_AQUI";
+
+  const payload = {
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: `Você é um especialista AWS, focado no serviço Amazon Comprehend. Responda com clareza e objetividade esta dúvida:\n\n"${pergunta}"` }]
+      }
+    ]
+  };
+
+  const resposta = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await resposta.json();
+  const texto = data?.candidates?.[0]?.content?.parts?.[0]?.text || "❌ Não foi possível responder.";
+  respostaDiv.innerHTML = `<strong>Resposta:</strong><br>${texto}`;
+}
+</script>
+
+    <!-- FIM DO TRECHO IA -->
     <!-- Link CORRETO para o JavaScript -->
     <script src="../../assets/js/script.js"></script>
         <!-- ... (resto do conteúdo e o <script>) ... -->
